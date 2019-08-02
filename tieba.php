@@ -1,15 +1,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 <?php
-define("COOKIE", "BDUSS=你的BDUSS; STOKEN=你的STOKEN");
-define("LOG_OUT", "log.txt");
+$cookie = file_get_contents("COOKIES");
+define("LOG_FILE", "log.txt");
 
 set_time_limit(0); //设置脚本执行时间无上限
-date_default_timezone_set("Asia/Shanghai");
-$log = fopen(LOG_OUT, "a");
+date_default_timezone_set("Asia/Shanghai"); //设置时区
+
+//log 文件
+$log = fopen(LOG_FILE, "a");
+
+//检查 Cookie
+if($cookie == "")
+{
+	LOG_FILE("Cookie 未设置！无法签到！");
+	exit;
+}
 
 signAll($log);
-
 
 //签到
 //参数：贴吧名称
@@ -41,8 +49,7 @@ function signAll($logOut)
 	$signed = 0; //签到成功个数
 	$t1 = microtime(true);
 	
-	//
-	
+	//循环签到所有贴吧
 	for($i = 0; $i < count($names); $i++)
 	{
 		$json = sign($names[$i]);
@@ -50,23 +57,23 @@ function signAll($logOut)
 		
 		if(intval($json->no) == 1101)
 		{
-			log_out("你已经签到过 ".$names[$i]."吧 了！");
+			LOG_FILE("你已经签到过 ".$names[$i]."吧 了！");
 		}
 		else if(intval($json->no) != 0)
 		{
-			log_out("签到 ".$names[$i]."吧 时发生错误！");
-			log_out("返回 json：".json_encode($json));
+			LOG_FILE("签到 ".$names[$i]."吧 时发生错误！");
+			LOG_FILE("返回 json：".json_encode($json));
 		}
 		else
 		{
-			log_out("签到 ".$names[$i]."吧 成功。");
+			LOG_FILE("签到 ".$names[$i]."吧 成功。");
 			$signed++;
 		}
 	}
 	
 	$t2 = microtime(true);
-	log_out("已成功签到：".$signed."/".count($names)." 个贴吧。");
-	log_out("耗时 ".round($t2 - $t1, 3)." 秒。");
+	LOG_FILE("已成功签到：".$signed."/".count($names)." 个贴吧。");
+	LOG_FILE("耗时 ".round($t2 - $t1, 3)." 秒。");
 }
 
 //获取所有关注的贴吧的名称
@@ -98,10 +105,17 @@ function getAllBars()
 	return $names;
 }
 
-function log_out($str)
+function LOG_FILE($str)
 {
 	global $log;
-	fwrite($log, "[".date("Y-m-d h:i:s",time())."] ".$str."\r\n");
+	$str = "[".date("Y-m-d h:i:s",time())."] ".$str."\r\n";
+	
+	fwrite($log, $str);
+	echo $str.PHP_EOL;
+	
+	//刷新缓冲区
+	ob_flush();
+	flush();
 }
 
 ?>
