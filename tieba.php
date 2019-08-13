@@ -1,7 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 <?php
-$cookie = file_get_contents("COOKIES");
 define("LOG_FILE", "log.txt");
 
 set_time_limit(0); //设置脚本执行时间无上限
@@ -10,7 +9,8 @@ date_default_timezone_set("Asia/Shanghai"); //设置时区
 //log 文件
 $log = fopen(LOG_FILE, "a");
 
-//检查 Cookie
+//读取、检查 Cookie
+$cookie = file_get_contents("COOKIES");
 if($cookie == "")
 {
 	LOG_FILE("Cookie 未设置！无法签到！");
@@ -23,11 +23,12 @@ signAll($log);
 //参数：贴吧名称
 function sign($name)
 {
+	global $cookie;
 	$data = ["ie" => "utf-8", "kw" => $name];
 	
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, "http://tieba.baidu.com/sign/add");
-	curl_setopt($ch, CURLOPT_COOKIE, COOKIE);
+	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36"); //设置 UA
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_POST, true); // 发送 Post 请求
@@ -45,6 +46,8 @@ function sign($name)
 //参数：输出日志的 fopen 对象
 function signAll($logOut)
 {
+	global $cookie;
+	
 	$names = getAllBars();
 	$signed = 0; //签到成功个数
 	$t1 = microtime(true);
@@ -55,11 +58,19 @@ function signAll($logOut)
 		$json = sign($names[$i]);
 		$json = json_decode($json);
 		
-		if(intval($json->no) == 1101)
+		//错误码
+		$code = intval($json->no);
+		
+		if($code == 1101)
 		{
 			LOG_FILE("你已经签到过 ".$names[$i]."吧 了！");
 		}
-		else if(intval($json->no) != 0)
+		else if($code == 1990055)
+		{
+			LOG_FILE("Cookie 已失效，请重新设置！");
+			LOG_FILE("返回 json：".json_encode($json));
+		}
+		else if($code != 0)
 		{
 			LOG_FILE("签到 ".$names[$i]."吧 时发生错误！");
 			LOG_FILE("返回 json：".json_encode($json));
@@ -79,10 +90,12 @@ function signAll($logOut)
 //获取所有关注的贴吧的名称
 function getAllBars()
 {
+	global $cookie;
+	
 	//获取贴吧首页
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, "https://tieba.baidu.com");
-	curl_setopt($ch, CURLOPT_COOKIE, COOKIE);
+	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36"); //设置 UA
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -110,8 +123,12 @@ function LOG_FILE($str)
 	global $log;
 	$str = "[".date("Y-m-d h:i:s",time())."] ".$str."\r\n";
 	
+	//输出到日志
 	fwrite($log, $str);
+	
+	//输出到网页
 	echo $str.PHP_EOL;
+	echo "<br />";
 	
 	//刷新缓冲区
 	ob_flush();
