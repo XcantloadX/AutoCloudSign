@@ -2,7 +2,7 @@
 	
 	<head>
 		<meta charset="utf-8" />
-		<title>云签到设置</title>
+		<title>百度贴吧云签到设置</title>
 	</head>
 	
 	<body>
@@ -10,7 +10,7 @@
 		<div>
 			
 			<form method="post" action="">
-				<p>当前 Cookie：</p>
+				<h3>当前 Cookie</h3>
 				<textarea id="cookie" rows=20 cols=50><?php
 				//如果 COOKIE 不存在则自动创建
 				if(!file_exists("COOKIES"))
@@ -52,8 +52,8 @@
 		<hr style="margin-top: 30px; margin-bottom: 30px;"/>
 		
 		<!--查看 log-->
-		<p>当前 Log：</p>
-		<pre id="log" style="border: 1px solid"><?php
+		<h3>当前 Log</h3>
+		<pre id="log" style="border: 1px solid; overflow: scroll; width: 80%; height: 600px;"><?php
 		if(file_exists("log.txt"))
 			echo file_get_contents("log.txt");
 		?></pre>

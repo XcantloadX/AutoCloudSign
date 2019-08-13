@@ -7,7 +7,10 @@ set_time_limit(0); //设置脚本执行时间无上限
 date_default_timezone_set("Asia/Shanghai"); //设置时区
 
 //log 文件
-$log = fopen(LOG_FILE, "a");
+if(file_exists(LOG_FILE) && (filesize(LOG_FILE) / 1024 / 1024) >= 2) //如果文件大于 2MB 则清空
+	$log = fopen(LOG_FILE, "w");
+else
+	$log = fopen(LOG_FILE, "a");
 
 //读取、检查 Cookie
 $cookie = file_get_contents("COOKIES");
