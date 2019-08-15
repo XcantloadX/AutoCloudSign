@@ -1,0 +1,30 @@
+<html>
+	
+	<head>
+		<meta charset="utf-8" />
+		<title>百度贴吧云签到</title>
+		<script type="text/javascript" src="tieba.js"></script>
+	</head>
+	
+	<body>
+		
+		<!--设置 Cookie-->
+		<div>
+			
+			<form method="post" action="">
+				<h3>当前 Cookie</h3>
+				<textarea id="cookie-edit" rows=20 cols=70></textarea>
+				<br />
+				<input type="button" value="保存" onclick="SetCookie();"/>
+			</form>
+			<p id="msg"></p>
+		</div>
+		
+		<hr style="margin-top: 30px; margin-bottom: 30px;"/>
+		
+		<!--查看 log-->
+		<h3>当前 Log</h3>
+		<pre id="log-text" style="border: 1px solid; overflow: scroll; width: 80%; height: 600px;"></pre>
+	</body>
+	
+</html>
