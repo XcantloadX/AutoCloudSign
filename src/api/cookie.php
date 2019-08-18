@@ -11,7 +11,7 @@ if(!isset($_GET["method"]))
 {
 	$data["err"] = -1;
 	$data["msg"] = "缺少参数 method";
-	Post();
+	Send();
 }
 else
 {
@@ -38,7 +38,7 @@ function TGetCookie()
 	global $data;
 	$data["cookie"] = file_get_contents("COOKIES");
 	
-	Post();
+	Send();
 }
 
 //设置 Cookie
@@ -55,7 +55,15 @@ function TSetCookie()
 	{
 		$data["err"] = -1;
 		$data["msg"] = "Cookie 为空";
-		Post();
+		Send();
+	}
+	
+	//检查 cookie
+	if(!TestCookie($cookie))
+	{
+		$data["err"] = -4;
+		$data["msg"] = "Cookie 无效";
+		Send();
 	}
 	
 	//写入 Cookie
@@ -63,16 +71,29 @@ function TSetCookie()
 	{
 		$data["err"] = -3;
 		$data["msg"] = "无法写入文件";
-		Post();
+		Send();
 	}
 	else
 	{
-		Post();
+		Send();
 	}
 	
 }
 
-function Post()
+function TestCookie($cookie)
+{
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, "http://tieba.baidu.com/f/user/json_userinfo");
+	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36"); //设置 UA
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); //返回内容储存到变量中
+	
+	$data = curl_exec($ch);
+	return $data != "null";
+}
+
+function Send()
 {
 	global $data;
 	
