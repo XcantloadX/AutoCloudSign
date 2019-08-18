@@ -2,29 +2,52 @@
 	
 	<head>
 		<meta charset="utf-8" />
-		<title>百度贴吧云签到</title>
-		<script type="text/javascript" src="tieba.js"></script>
+		<title>百度贴吧云签到-控制面板</title>
+		
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/tieba.js"></script>
+		<script type="text/javascript" src="js/msgbox.js"></script>
+		
+		<link rel="stylesheet" href="style.css" />
+		<!--font awesome 图标-->
+		<link href="https://cdn.bootcss.com/font-awesome/5.10.0-12/css/all.css" rel="stylesheet">
 	</head>
 	
 	<body>
-		
-		<!--设置 Cookie-->
-		<div>
+
+		<div id="content">
 			
-			<form method="post" action="">
-				<h3>当前 Cookie</h3>
-				<textarea id="cookie-edit" rows=20 cols=70></textarea>
-				<br />
-				<input type="button" value="保存" onclick="SetCookie();"/>
-			</form>
-			<p id="msg"></p>
+			<h1>控制面板</h1>
+			
+			<div id="settings-stat" class="section">
+				<h2>运行状态</h2>
+				
+				
+				<div id="msg-develop" class="msg msg-warn">以下功能正在开发中，尚不可用。</div>
+				
+				<p>上次签到：<span id="last-sign">N/A</span></p>
+				<input class="btn btn-disabled" type="button" value="签到" />
+			</div>
+			
+			<!--Cookie 设置-->
+			<div id="settings-cookie" class="section">
+				<h2>Cookie 设置</h2>
+				
+				<form method="post" action="">
+					<textarea id="cookie-edit" rows=15></textarea>
+					<br />
+					<input class="btn" type="button" value="保存" onclick="SetCookie();" />
+				</form>
+				<div id="msg-cookie" class="msg" style="display: none" ></div>
+			</div>
+			
+			<div id="settings-log" class="section">
+				<!--查看 log-->
+				<h2>运行日志</h2>
+				<pre id="log-text" style="border: 1px solid; overflow: scroll; height: 600px;"></pre>
+			</div>
+			
 		</div>
-		
-		<hr style="margin-top: 30px; margin-bottom: 30px;"/>
-		
-		<!--查看 log-->
-		<h3>当前 Log</h3>
-		<pre id="log-text" style="border: 1px solid; overflow: scroll; width: 80%; height: 600px;"></pre>
 	</body>
 	
 </html>

@@ -1,0 +1,84 @@
+h1, h2{
+	padding-bottom: 8px;
+	margin-bottom: 25px;
+	
+	border-bottom: solid 2px;
+	border-bottom-color: #bfbfbf;
+}
+
+.section{
+	margin-bottom: 45px;
+	padding: 20px;
+	border: solid 1px hsl(0, 0%, 85%);
+	
+}
+
+/*按钮*/
+.btn{
+	width: 90px;
+	height: 40px;
+	
+	background-color: #1E90FF;
+	
+	color: white;
+	font-size: 15px;
+	
+	outline: none; /*去除默认样式*/
+	
+	border: solid 0px white;
+	border-radius: 4px;
+	
+	cursor: pointer;
+}
+
+.btn:hover{
+	background: #5599FF;
+}
+
+/*禁用时的按钮*/
+.btn-disabled{
+	background-color: #b3b3b3;
+	cursor: default;
+}
+
+.btn-disabled:hover{
+	background-color: #b3b3b3;
+}
+
+
+/*提示信息*/
+.msg{
+	padding: 10px;
+	margin: 10px;
+	
+	border: solid 1px;
+	border-radius: 4px;
+	background-color: #6699ff;
+	
+	font-size: 17px;
+	color: white;
+}
+
+/*错误提示信息*/
+.msg-err{
+	background-color: #ff6666;
+}
+
+/*警告提示信息*/
+.msg-warn{
+	background-color: #ffb31a;
+}
+
+#content{
+	width: 75%;
+	margin: 0 auto;
+}
+
+#cookie-edit{
+	width: 500px;
+}
+
+/*font awesome 图标*/
+.fa{
+	margin-right: 6px;!important
+}

@@ -2,7 +2,12 @@
 $data = array();
 $data["err"] = 0;
 $data["msg"] = "操作成功";
-$data["log"] = file_get_contents("log.txt");
+
+if(file_exists("log.txt"))
+	$data["log"] = file_get_contents("log.txt");
+else
+	$data["log"] = "";
+
 
 Post();
 
