@@ -75,6 +75,7 @@ function TSetCookie()
 	}
 	else
 	{
+		$data["msg"] = "保存成功";
 		Send();
 	}
 	

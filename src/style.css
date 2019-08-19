@@ -6,11 +6,27 @@ h1, h2{
 	border-bottom-color: #bfbfbf;
 }
 
+/*文本编辑框*/
+textarea{
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
 .section{
 	margin-bottom: 45px;
 	padding: 20px;
-	border: solid 1px hsl(0, 0%, 85%);
 	
+	border: solid 1px hsl(0, 0%, 85%);
+	border-radius: 2px;
+}
+
+/*log 显示框*/
+#log-text{
+	border: 1px solid #bfbfbf;
+	border-radius: 2px;
+	
+	overflow: scroll;
+	height: 600px;
 }
 
 /*按钮*/
@@ -48,7 +64,7 @@ h1, h2{
 
 /*提示信息*/
 .msg{
-	padding: 10px;
+	padding: 11px;
 	margin: 10px;
 	
 	border: solid 1px;
@@ -57,6 +73,10 @@ h1, h2{
 	
 	font-size: 17px;
 	color: white;
+	
+	/*消息框长度随内容长度变化*/
+	/*display: inline-block;
+	min-width: 500px;*/
 }
 
 /*错误提示信息*/
@@ -67,6 +87,11 @@ h1, h2{
 /*警告提示信息*/
 .msg-warn{
 	background-color: #ffb31a;
+}
+
+/*成功提示信息*/
+.msg-success{
+	background-color: #2eb72e;
 }
 
 #content{
@@ -80,5 +105,5 @@ h1, h2{
 
 /*font awesome 图标*/
 .fa{
-	margin-right: 6px;!important
+	margin-right: 7px;!important
 }

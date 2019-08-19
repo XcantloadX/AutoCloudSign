@@ -43,7 +43,7 @@ function SetCookie()
 		
 		//显示提示信息
 		msg.innerText = json.msg;
-		msg.className = json.err == 0 ? "msg" : "msg msg-err";
+		msg.className = json.err == 0 ? "msg msg-success" : "msg msg-err";
 		msg.style.display = "";
 		RefreshMsg(msg);
 		

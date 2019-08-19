@@ -1,6 +1,7 @@
 var ICON_WARN = "<i class=\"fa fa-exclamation-triangle\"></i>";
 var ICON_ERR = "<i class=\"fa fa-ban\"></i>";
 var ICON_INFO = "<i class=\"fa fa-info-circle\"></i>"
+var ICON_SUCCESS = "<i class=\"fa fa-check\"></i>";
 
 onload(function()
 {
@@ -27,6 +28,8 @@ function InitBox(msg)
 		icon = ICON_WARN;
 	else if(msg.classList.contains("msg-err"))
 		icon = ICON_ERR;
+	else if(msg.classList.contains("msg-success"))
+		icon = ICON_SUCCESS;
 	else
 		icon = ICON_INFO;
 	
