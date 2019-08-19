@@ -2,6 +2,10 @@
 	
 	<head>
 		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+		<!--禁止搜索引擎收录-->
+		<meta name="robots" content="none" />
+		
 		<title>百度贴吧云签到-控制面板</title>
 		
 		<script type="text/javascript" src="js/common.js"></script>
@@ -25,7 +29,7 @@
 				<div id="msg-develop" class="msg msg-warn">以下功能正在开发中，尚不可用。</div>
 				
 				<p>上次签到：<span id="last-sign">N/A</span></p>
-				<input class="btn btn-disabled" type="button" value="签到" />
+				<input class="btn btn-disabled" type="button" value="立即签到" />
 			</div>
 			
 			<!--Cookie 设置-->
@@ -44,6 +48,11 @@
 				<!--查看 log-->
 				<h2>运行日志</h2>
 				<pre id="log-text"></pre>
+			</div>
+			
+			<div id="footer">
+				<p>By @XcantloadX</p>
+				<a href="https://github.com/XcantloadX/TieBaCloudSign">Fork Me On Github</a>
 			</div>
 			
 		</div>

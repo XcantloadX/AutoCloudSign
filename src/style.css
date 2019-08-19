@@ -17,7 +17,10 @@ textarea{
 	padding: 20px;
 	
 	border: solid 1px hsl(0, 0%, 85%);
-	border-radius: 2px;
+	border-radius: 4px;
+	
+	/*边框阴影*/
+	box-shadow: 0px 0px 2px #ccc;
 }
 
 /*log 显示框*/
@@ -27,6 +30,12 @@ textarea{
 	
 	overflow: scroll;
 	height: 600px;
+}
+
+#footer>*{
+	display: block;
+	text-align: center;
+	color: #a6a6a6;
 }
 
 /*按钮*/
@@ -45,6 +54,8 @@ textarea{
 	border-radius: 4px;
 	
 	cursor: pointer;
+	
+	box-shadow: 0px 0px 3px #ccc;
 }
 
 .btn:hover{
@@ -67,12 +78,13 @@ textarea{
 	padding: 11px;
 	margin: 10px;
 	
-	border: solid 1px;
 	border-radius: 4px;
 	background-color: #6699ff;
 	
 	font-size: 17px;
 	color: white;
+	
+	box-shadow: 0px 0px 3px #ccc;
 	
 	/*消息框长度随内容长度变化*/
 	/*display: inline-block;
@@ -101,6 +113,7 @@ textarea{
 
 #cookie-edit{
 	width: 500px;
+	margin: 5px;
 }
 
 /*font awesome 图标*/
