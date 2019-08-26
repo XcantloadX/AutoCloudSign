@@ -6,12 +6,12 @@
 		<!--禁止搜索引擎收录-->
 		<meta name="robots" content="none" />
 		
-		<title>百度贴吧云签到-控制面板</title>
+		<title>百度贴吧 - AutoSignIn</title>
 		
-		<script type="text/javascript" src="static/js/common.js"></script>
-		<script type="text/javascript" src="static/js/tieba.js"></script>
-		<script type="text/javascript" src="static/js/msgbox.js"></script>
 		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" ></script>
+		<script type="text/javascript" src="static/js/common.js"></script>
+		<script type="text/javascript" src="static/js/toast.js"></script>
+		<script type="text/javascript" src="static/js/tieba.js"></script>
 		
 		<link rel="stylesheet" href="static/css/style.css" />
 		<!--font awesome 图标-->
@@ -27,7 +27,10 @@
 			<div id="settings-stat" class="section">
 				<h2>运行状态</h2>
 				
-				<div id="msg-develop" class="msg msg-warn">以下功能正在开发中，尚不可用。</div>
+				<div id="msg-develop" class="msg msg-warn">
+					<i class="fa fa-exclamation-triangle"></i>
+					以下功能正在开发中，尚不可用。
+				</div>
 				
 				<p>上次签到：<span id="last-sign">N/A</span></p>
 				<input class="btn btn-disabled" type="button" value="立即签到" />
@@ -42,13 +45,15 @@
 					<br />
 					<input class="btn" type="button" value="保存" onclick="SetCookie();" />
 				</form>
-				<div id="msg-cookie" class="msg" style="display: none" ></div>
 			</div>
 			
 			<div id="settings-log" class="section">
 				<!--查看 log-->
 				<h2>运行日志</h2>
 				<pre id="log"></pre>
+				
+				<input id="reload-log" class="btn btn-disabled" type="button" value="刷新" />
+				<input id="clear-log" class="btn btn-disabled" type="button" value="清除" />
 			</div>
 			
 			<div id="footer">

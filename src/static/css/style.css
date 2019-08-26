@@ -52,6 +52,7 @@ textarea{
 	
 	border: solid 0px white;
 	border-radius: 4px;
+	margin: 0 7px;
 	
 	cursor: pointer;
 	
@@ -87,12 +88,12 @@ textarea{
 	box-shadow: 0px 0px 3px #ccc;
 	
 	/*消息框长度随内容长度变化*/
-	/*display: inline-block;
-	min-width: 500px;*/
+	/*display: inline-block;*/
+	min-width: 500px;
 }
 
 /*错误提示信息*/
-.msg-err{
+.msg-error{
 	background-color: #ff6666;
 }
 
@@ -104,6 +105,13 @@ textarea{
 /*成功提示信息*/
 .msg-success{
 	background-color: #2eb72e;
+}
+
+/*浮动信息*/
+.msg-float{
+	position: fixed;
+	top: 20px;
+	left: 50%;
 }
 
 #content{
