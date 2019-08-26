@@ -11,6 +11,7 @@
 		<script type="text/javascript" src="static/js/common.js"></script>
 		<script type="text/javascript" src="static/js/tieba.js"></script>
 		<script type="text/javascript" src="static/js/msgbox.js"></script>
+		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" ></script>
 		
 		<link rel="stylesheet" href="static/css/style.css" />
 		<!--font awesome 图标-->
@@ -36,7 +37,7 @@
 			<div id="settings-cookie" class="section">
 				<h2>Cookie 设置</h2>
 				
-				<form method="post" action="">
+				<form>
 					<textarea id="cookie-edit" rows=15 spellcheck="false"></textarea>
 					<br />
 					<input class="btn" type="button" value="保存" onclick="SetCookie();" />
@@ -47,7 +48,7 @@
 			<div id="settings-log" class="section">
 				<!--查看 log-->
 				<h2>运行日志</h2>
-				<pre id="log-text"></pre>
+				<pre id="log"></pre>
 			</div>
 			
 			<div id="footer">

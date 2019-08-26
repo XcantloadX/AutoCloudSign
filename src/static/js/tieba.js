@@ -9,7 +9,7 @@ onload(function()
 	logText = document.getElementById("log-text");
 	
 	GetCookie();
-	GetLog();
+	LoadLog();
 });
 
 
@@ -52,12 +52,20 @@ function SetCookie()
 	});
 }
 
-//获取 log 内容
-function GetLog()
-{
-	SendHTTP("api/getLog.php", "GET", "", function(http)
-	{
-		var json = JSON.parse(http.responseText);
-		logText.innerText = json.log;
+//加载 log 内容
+function LoadLog(){
+	var pre = $("#log")[0];
+	
+	$.ajax({
+		url: "api/getLog.php", 
+		async: true,
+		success: function(data){
+			var json = JSON.parse(data);
+			pre.innerText = json.log;
+			
+			//自动滚动到 <pre> 底部
+			pre.scrollTop = pre.scrollHeight;
+		}
 	});
+
 }
