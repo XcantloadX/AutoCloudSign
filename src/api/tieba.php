@@ -72,6 +72,7 @@ function signAll($logOut)
 		{
 			LOG_FILE("Cookie 已失效，请重新设置！");
 			LOG_FILE("返回 json：".json_encode($json));
+			break;
 		}
 		else if($code != 0)
 		{
