@@ -1,17 +1,15 @@
 window.Icon = window.Icon || {};
 var ICON_ELE = "<i class=\"{class}\"></i>";
 
-var icons = {
-	new: function(className){
-		return ICON_ELE.replace("{class}", className);
-	},
-};
+function _new(className){
+	return ICON_ELE.replace("{class}", className);
+}
 
 Icon = {
-	info: icons.new("fa fa-info-circle"),
-	success: icons.new("fa fa-check"),
-	warn: icons.new("fa fa-exclamation-triangle"),
-	error: icons.new("fa fa-times"),
+	info: _new("fa fa-info-circle"),
+	success: _new("fa fa-check"),
+	warn: _new("fa fa-exclamation-triangle"),
+	error: _new("fa fa-times"),
 };
 
 Icon.add = function(name, value){
