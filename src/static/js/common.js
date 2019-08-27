@@ -1,19 +1,10 @@
-//网页加载完成事件
-function onload(func)
-{
-	window.addEventListener("load", func, false);
-}
-
-//发送 HTTP 请求
-function SendHTTP(url, method, postData, onDataLoaded)
-{
-	var http = new XMLHttpRequest();
-	http.open(method, url, true);
-	http.onreadystatechange = function()
-	{
-		if(http.readyState == 4 && onDataLoaded != null)
-			onDataLoaded(http);
+$(function(){
+	if(navigator.userAgent.indexOf("MSIE") > -1){
+	try{
+		Toast.pop("你正在使用 IE 浏览器，可能出现未知错误，建议使用 Chrome。", "warn", 5);
 	}
-	
-	http.send(postData);
+	catch(e){
+		alert("你正在使用 IE 浏览器，可能出现未知错误，建议使用 Chrome。");
+	}
 }
+});

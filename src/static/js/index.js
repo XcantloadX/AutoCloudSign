@@ -1,4 +1,4 @@
-const signer = [
+var signer = [
 	{
 		name: "百度贴吧",
 		logo: "static/image/bdtieba.png",
@@ -45,7 +45,7 @@ const signer = [
 	}
 ];
 
-const template = `
+var template = `
 <div class="signer">
 	<img class="logo" width="64" height="64" src="{logo}" alt="{name} LOGO" />
 	<p class="name">{name}</p>

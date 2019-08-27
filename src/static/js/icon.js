@@ -1,5 +1,5 @@
 window.Icon = window.Icon || {};
-const ICON_ELE = "<i class=\"{class}\"></i>";
+var ICON_ELE = "<i class=\"{class}\"></i>";
 
 var icons = {
 	new: function(className){

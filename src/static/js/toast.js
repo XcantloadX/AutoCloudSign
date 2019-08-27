@@ -1,6 +1,6 @@
 window.Toast = window.Toast || {};
 
-const ICON_ELEMENT = "<i class=\"{class}\"></i>";
+var ICON_ELEMENT = "<i class=\"{class}\"></i>";
 var icons = {
 	new: function(className){
 		return ICON_ELEMENT.replace("{class}", className);
