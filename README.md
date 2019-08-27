@@ -4,6 +4,7 @@
 可能写的比较渣... QAQ  
 
 ## Demo
+**由于更新 Demo 很麻烦，所以在线 Demo 暂时还是旧版本！**
 http://qwq233.tk/demos/cloudsign/
 
 ## 使用

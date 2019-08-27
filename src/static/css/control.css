@@ -22,3 +22,7 @@
 .stat-signed{
 	color: green;
 }
+
+#header>h1{
+	display: block;
+}
