@@ -17,3 +17,6 @@ http://qwq233.tk/demos/cloudsign/
 ## 截图
 ![签到日志](https://github.com/XcantloadX/TieBaCloudSign/blob/master/log.png?raw=true)
 ![IFTTT 示意图](https://github.com/XcantloadX/TieBaCloudSign/blob/master/ifttt.png?raw=true)
+
+## Credit
+Icons made by [dmitri13](https://www.flaticon.com/authors/dmitri13) from [www.flaticon.com](https://www.flaticon.com/) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
