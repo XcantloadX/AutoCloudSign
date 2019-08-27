@@ -34,7 +34,6 @@ body{
 	background: #f2f2f2;
 	
 	/*宽高*/
-	width: 100%;
 	height: 50px;
 	
 	margin: 0;
@@ -49,7 +48,7 @@ body{
 	
 	margin: 0;
 	margin-left: 30px;
-	padding-right: 70px; /*让右边的下划线稍微延长一下*/
+	padding-right: 80px; /*让右边的下划线稍微延长一下*/
 }
 
 #header>#back-text{
