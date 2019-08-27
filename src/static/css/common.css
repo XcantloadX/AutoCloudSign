@@ -1,0 +1,24 @@
+#content{
+	width: 75%;
+	margin: 0 auto;
+}
+
+h1, h2{
+	padding-bottom: 8px;
+	margin-bottom: 25px;
+	
+	border-bottom: solid 2px;
+	border-bottom-color: #bfbfbf;
+	
+	color: #333;
+}
+
+#footer{
+	margin-top: 40px;
+	clear: both;
+	text-align: center;
+}
+
+#footer>*{
+	color: #a6a6a6;
+}
