@@ -20,6 +20,10 @@
 	font-weight: bold;
 }
 
+.signer .fa{
+	padding-right: 4px;
+}
+
 /*状态-已签到*/
 .stat-signed{
 	color: green;
@@ -27,5 +31,5 @@
 
 /*状态-警告*/
 .stat-warn{
-	color: #cccc00;
+	color: #D8BD02;
 }
