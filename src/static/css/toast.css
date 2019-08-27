@@ -13,8 +13,6 @@
 	
 	box-shadow: 0px 0px 3px #ccc;
 	
-	/*消息框长度随内容长度变化*/
-	/*display: inline-block;*/
 	min-width: 500px;
 }
 

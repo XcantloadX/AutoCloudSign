@@ -6,6 +6,7 @@
 	border-radius: 4px;
 	
 	min-width: 150px;
+	min-height: 178px;
 	
 	/*边框阴影*/
 	box-shadow: 0px 0px 2px #ccc;
@@ -19,9 +20,16 @@
 	font-weight: bold;
 }
 
+/*状态-已签到*/
 .stat-signed{
 	color: green;
 }
+
+/*状态-警告*/
+.stat-warn{
+	color: #cccc00;
+}
+
 
 #header>h1{
 	display: block;

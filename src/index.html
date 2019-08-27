@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html>
-	
 	<head>
+		<title>控制面板 - AutoSignIn</title>
+		
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 		<!--禁止搜索引擎收录-->
 		<meta name="robots" content="none" />
 		
-		<title>百度贴吧 - AutoSignIn</title>
-		
 		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" ></script>
 		<script type="text/javascript" src="static/js/common.js"></script>
 		<script type="text/javascript" src="static/js/toast.js"></script>
-		<script type="text/javascript" src="static/js/tieba.js"></script>
+		<script type="text/javascript" src="static/js/index.js"></script>
 		
-		<link rel="stylesheet" href="static/css/style.css" />
 		<link rel="stylesheet" href="static/css/common.css" />
+		<link rel="stylesheet" href="static/css/control.css" />
 		<link rel="stylesheet" href="static/css/toast.css" />
 		<link rel="stylesheet" href="static/css/btn.css" />
 		<!--font awesome 图标-->
@@ -24,47 +23,31 @@
 	</head>
 	
 	<body>
-		
 		<div id="header">
-			<i id="back-arrow" class="fa fa-arrow-left"></i>
-			<a id="back-text" href="control.html">返回</a>
-			<h1 id="title">百度贴吧 - 控制面板</h1>
+			<h1>控制面板</h1>
 		</div>
 		
+		
 		<div id="content">
-			
-			
-			<div id="settings-stat" class="section">
-				<h2>运行状态</h2>
-				
-				<div id="msg-develop" class="msg msg-warn">
-					<i class="fa fa-exclamation-triangle"></i>
-					以下功能正在开发中，尚不可用。
-				</div>
-				
-				<p>上次签到：<span id="last-sign">N/A</span></p>
-				<input class="btn btn-disabled" type="button" value="立即签到" />
+		
+			<div class="msg msg-warn">
+				<i class="fa fa-exclamation-triangle"></i>
+				以下功能正在开发中，目前<b>状态功能只是摆设</b>。
 			</div>
 			
-			<!--Cookie 设置-->
-			<div id="settings-cookie" class="section">
-				<h2>Cookie</h2>
-				
-				<form>
-					<textarea id="cookie-edit" rows=15 spellcheck="false"></textarea>
-					<br />
-					<input class="btn" type="button" value="保存" onclick="SetCookie();" />
-				</form>
-			</div>
+			<script>
+			//输出所有的网站
+			writeSigners();
+			</script>
 			
-			<div id="settings-log" class="section">
-				<!--查看 log-->
-				<h2>运行日志</h2>
-				<pre id="log"></pre>
-				
-				<input id="reload-log" class="btn btn-disabled" type="button" value="刷新" />
-				<input id="clear-log" class="btn btn-disabled" type="button" value="清除" />
+			<!--示例模板-->
+			<div style="display: none" class="signer">
+				<img class="logo" width="64" height="64" src="static/image/bdtieba.png" alt="百度贴吧 LOGO" />
+				<p class="name">百度贴吧</p>
+				<p>状态：<span class="stat-signed">已签到</span></p>
+				<a class="btn btn-link" href="index.html">查看更多</a>
 			</div>
+
 			
 		</div>
 		
@@ -74,5 +57,5 @@
 		</div>
 		
 	</body>
-	
+
 </html>
