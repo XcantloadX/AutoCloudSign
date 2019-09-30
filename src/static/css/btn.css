@@ -21,6 +21,7 @@
 
 .btn:hover{
 	background: #5599FF;
+	cursor: pointer;
 }
 
 /*禁用时的按钮*/
@@ -37,4 +38,6 @@
 	text-decoration: none;
 	text-align: center;
 	padding: 10px 13px;
+	
+	cursor: pointer;
 }

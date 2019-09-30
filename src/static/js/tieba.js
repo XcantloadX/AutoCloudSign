@@ -18,7 +18,7 @@ function GetCookie(){
 		url: "api/cookie.php?method=get",
 		success: function(data){
 			var json = JSON.parse(data);
-			if(json.err != 0)
+			if(json.code != 0)
 				Toast.pop(json.msg, "error", 3);
 			cookieEdit.value = json.cookie;
 		}
@@ -38,7 +38,7 @@ function SetCookie(){
 		data: cookieEdit.value,
 		success: function(data){
 			var json = JSON.parse(data);
-			Toast.pop(json.msg, json.err == 0 ? "success" : "error", 3);
+			Toast.pop(json.msg, Toast.err2type(json.code), 3);
 		}
 	});
 }
@@ -48,13 +48,28 @@ function LoadLog(){
 	var pre = $("#log")[0];
 	
 	$.ajax({
-		url: "api/getLog.php", 
+		url: "api/log.php", 
 		success: function(data){
-			var json = JSON.parse(data);
+			//var json = JSON.parse(data);
+			var json = data;
 			pre.innerHTML = Highlight.process(json.log);
 			
 			//自动滚动到 <pre> 底部
 			pre.scrollTop = pre.scrollHeight;
+		}
+	});
+}
+
+function deleteLog(){
+	$.ajax({
+		url: "api/log.php",
+		type: "DELETE",
+		success: function(data){
+			//var json = JSON.parse(data);
+			var json = data;
+			
+			Toast.pop(json.msg, Toast.err2type(json.code), 3);
+			console.log(json);
 		}
 	});
 }

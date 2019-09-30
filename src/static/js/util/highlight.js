@@ -10,7 +10,6 @@ const _template = "<span style=\"color: {color}\">{text}</span>";
 var _replace = function(str, arr){
 	for(var k in arr){
 		str = str.replace("{" + k + "}", arr[k]); //替换字符串
-		console.log(k + "|" + arr[k] + "|" + str);
 	}
 	
 	return str;
@@ -19,6 +18,9 @@ var _replace = function(str, arr){
 //高亮文本，返回高亮后的 Html 代码
 //@param str 要高亮的日志文本
 window.Highlight.process = function(str){
+	if(!str || str == "")
+		return "";
+	
 	var lines = str.split("\n");
 	var html = "";
 	

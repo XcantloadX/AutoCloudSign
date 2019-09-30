@@ -40,6 +40,13 @@ Toast.pop = function(text, type, timeout){
 	return div;
 }
 
+//错误代码转换为类型
+Toast.err2type = function(errCode){
+	if(errCode != 0)
+		return "error";
+	return "success";
+}
+
 //清除信息
 Toast.clear = function(msg){
 	document.body.removeChild(msg);

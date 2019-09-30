@@ -2,14 +2,14 @@
 //Cookie 设置相关
 
 $data = array();
-$data["err"] = 0;
+$data["code"] = 0;
 $data["msg"] = "操作成功";
 $data["cookie"] = "";
 
 //获取方法
 if(!isset($_GET["method"]))
 {
-	$data["err"] = -1;
+	$data["code"] = -1;
 	$data["msg"] = "缺少参数 method";
 	Send();
 }
@@ -23,7 +23,7 @@ else
 		TSetCookie();
 	else
 	{
-		$data["err"] = -2;
+		$data["code"] = -2;
 		$data["msg"] = "参数 method 不正确";
 	}
 }
@@ -53,7 +53,7 @@ function TSetCookie()
 	}
 	else
 	{
-		$data["err"] = -1;
+		$data["code"] = -1;
 		$data["msg"] = "Cookie 为空";
 		Send();
 	}
@@ -61,7 +61,7 @@ function TSetCookie()
 	//检查 cookie
 	if(!TestCookie($cookie))
 	{
-		$data["err"] = -4;
+		$data["code"] = -4;
 		$data["msg"] = "Cookie 无效";
 		Send();
 	}
@@ -69,7 +69,7 @@ function TSetCookie()
 	//写入 Cookie
 	if(file_put_contents("COOKIES", $cookie) <= 0)
 	{
-		$data["err"] = -3;
+		$data["code"] = -3;
 		$data["msg"] = "无法写入文件";
 		Send();
 	}
@@ -98,7 +98,7 @@ function Send()
 {
 	global $data;
 	
-	if($data["err"] != 0)
+	if($data["code"] != 0)
 		header("HTTP/1.1 400");
 	
 	echo json_encode($data);
