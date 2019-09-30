@@ -51,7 +51,7 @@ function LoadLog(){
 		url: "api/getLog.php", 
 		success: function(data){
 			var json = JSON.parse(data);
-			pre.innerText = json.log;
+			pre.innerHTML = Highlight.process(json.log);
 			
 			//自动滚动到 <pre> 底部
 			pre.scrollTop = pre.scrollHeight;

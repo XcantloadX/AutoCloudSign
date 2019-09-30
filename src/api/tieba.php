@@ -66,29 +66,29 @@ function signAll($logOut)
 		
 		if($code == 1101)
 		{
-			LOG_FILE("你已经签到过 ".$names[$i]."吧 了！");
+			LOG_FILE("Warning", "你已经签到过 ".$names[$i]."吧 了！");
 		}
 		else if($code == 1990055)
 		{
-			LOG_FILE("Cookie 已失效，请重新设置！");
-			LOG_FILE("返回 json：".json_encode($json));
+			LOG_FILE("Error", "Cookie 已失效，请重新设置！");
+			LOG_FILE("Error", "返回 json：".json_encode($json));
 			break;
 		}
 		else if($code != 0)
 		{
-			LOG_FILE("签到 ".$names[$i]."吧 时发生错误！");
-			LOG_FILE("返回 json：".json_encode($json));
+			LOG_FILE("Error", "签到 ".$names[$i]."吧 时发生错误！");
+			LOG_FILE("Error", "返回 json：".json_encode($json));
 		}
 		else
 		{
-			LOG_FILE("签到 ".$names[$i]."吧 成功。");
+			LOG_FILE("Info", "签到 ".$names[$i]."吧 成功。");
 			$signed++;
 		}
 	}
 	
 	$t2 = microtime(true);
-	LOG_FILE("已成功签到：".$signed."/".count($names)." 个贴吧。");
-	LOG_FILE("耗时 ".round($t2 - $t1, 3)." 秒。");
+	LOG_FILE("Info", "已成功签到：".$signed."/".count($names)." 个贴吧。");
+	LOG_FILE("Info", "耗时 ".round($t2 - $t1, 3)." 秒。");
 }
 
 //获取所有关注的贴吧的名称
@@ -122,10 +122,10 @@ function getAllBars()
 	return $names;
 }
 
-function LOG_FILE($str)
+function LOG_FILE($type ,$str)
 {
 	global $log;
-	$str = "[".date("Y-m-d h:i:s",time())."] ".$str."\r\n";
+	$str = "[".$type."][".date("Y-m-d h:i:s",time())."] ".$str."\r\n";
 	
 	//输出到日志
 	fwrite($log, $str);

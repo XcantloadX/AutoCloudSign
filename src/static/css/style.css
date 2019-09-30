@@ -17,6 +17,8 @@ textarea{
 
 /*log 显示框*/
 #log{
+	font-family: Consolas,Microsoft YaHei;
+	
 	border: 1px solid #bfbfbf;
 	border-radius: 2px;
 	
