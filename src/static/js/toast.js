@@ -36,7 +36,7 @@ Toast.pop = function(text, type, timeout){
 	//应用
 	document.body.append(div);
 	
-	div.style.marginLeft = -div.clientWidth / 2; //居中
+	div.style.marginLeft = (-div.clientWidth / 2).toString() + "px"; //水平居中
 	return div;
 }
 
