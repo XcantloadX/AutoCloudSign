@@ -1,32 +1,23 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
 <?php
-define("LOG_FILE", "log.txt");
+logSetName("TieBa");
+logInfo("开始签到百度贴吧");
 
-set_time_limit(0); //设置脚本执行时间无上限
-date_default_timezone_set("Asia/Shanghai"); //设置时区
-
-//log 文件
-if(file_exists(LOG_FILE) && (filesize(LOG_FILE) / 1024 / 1024) >= 2) //如果文件大于 2MB 则清空
-	$log = fopen(LOG_FILE, "w");
-else
-	$log = fopen(LOG_FILE, "a");
-
-//读取、检查 Cookie
-$cookie = file_get_contents("COOKIES");
-if($cookie == "")
+watchStart();
+//读取 Cookie
+foreach($tieba as $t)
 {
-	LOG_FILE("Cookie 未设置！无法签到！");
-	exit;
+	signAll($t);
 }
 
-signAll($log);
+watchEnd();
+logInfo("耗时 ".watchGetSec()." 秒。");
+logInfo("完成");
+
 
 //签到
 //参数：贴吧名称
-function sign($name)
+function sign($name, $cookie)
 {
-	global $cookie;
 	$data = ["ie" => "utf-8", "kw" => $name];
 	
 	$ch = curl_init();
@@ -47,18 +38,15 @@ function sign($name)
 
 //签到所有贴吧
 //参数：输出日志的 fopen 对象
-function signAll($logOut)
+function signAll($cookie)
 {
-	global $cookie;
-	
-	$names = getAllBars();
+	$names = getAllBars($cookie);
 	$signed = 0; //签到成功个数
-	$t1 = microtime(true);
 	
 	//循环签到所有贴吧
 	for($i = 0; $i < count($names); $i++)
 	{
-		$json = sign($names[$i]);
+		$json = sign($names[$i], $cookie);
 		$json = json_decode($json);
 		
 		//错误码
@@ -66,36 +54,33 @@ function signAll($logOut)
 		
 		if($code == 1101)
 		{
-			LOG_FILE("Warning", "你已经签到过 ".$names[$i]."吧 了！");
+			logWarn("你已经签到过 ".$names[$i]."吧 了！");
 		}
 		else if($code == 1990055)
 		{
-			LOG_FILE("Error", "Cookie 已失效，请重新设置！");
-			LOG_FILE("Error", "返回 json：".json_encode($json));
+			logError("Cookie 已失效，请重新设置！");
+			logError("返回 json：".json_encode($json));
 			break;
 		}
 		else if($code != 0)
 		{
-			LOG_FILE("Error", "签到 ".$names[$i]."吧 时发生错误！");
-			LOG_FILE("Error", "返回 json：".json_encode($json));
+			logInfo("签到 ".$names[$i]."吧 时发生错误！");
+			logInfo("返回 json：".json_encode($json));
 		}
 		else
 		{
-			LOG_FILE("Info", "签到 ".$names[$i]."吧 成功。");
+			logInfo("签到 ".$names[$i]."吧 成功。");
 			$signed++;
 		}
 	}
 	
 	$t2 = microtime(true);
-	LOG_FILE("Info", "已成功签到：".$signed."/".count($names)." 个贴吧。");
-	LOG_FILE("Info", "耗时 ".round($t2 - $t1, 3)." 秒。");
+	logInfo("已成功签到：".$signed."/".count($names)." 个贴吧。");
 }
 
 //获取所有关注的贴吧的名称
-function getAllBars()
+function getAllBars($cookie)
 {
-	global $cookie;
-	
 	//获取贴吧首页
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, "https://tieba.baidu.com");
@@ -120,23 +105,6 @@ function getAllBars()
 	}
 	
 	return $names;
-}
-
-function LOG_FILE($type ,$str)
-{
-	global $log;
-	$str = "[".$type."][".date("Y-m-d h:i:s",time())."] ".$str."\r\n";
-	
-	//输出到日志
-	fwrite($log, $str);
-	
-	//输出到网页
-	echo $str.PHP_EOL;
-	echo "<br />";
-	
-	//刷新缓冲区
-	ob_flush();
-	flush();
 }
 
 ?>
