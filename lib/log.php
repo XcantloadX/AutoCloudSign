@@ -66,6 +66,5 @@ function output($type, $sender, $str, $color)
 	echo $msg.PHP_EOL."<br/>";
 	
 	//刷新缓冲区
-	ob_flush();
 	flush();
 }
