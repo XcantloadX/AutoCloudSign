@@ -7,6 +7,7 @@ include_once "cookies.php";
 define("SIGN_SCRIPT_PATH", "script/");
 
 set_time_limit(0); //设置脚本执行时间无上限
+ignore_user_abort(true); //后台运行
 date_default_timezone_set("Asia/Shanghai"); //设置时区
 
 //获取所有签到脚本

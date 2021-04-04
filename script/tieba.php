@@ -46,32 +46,39 @@ function signAll($cookie)
 	//循环签到所有贴吧
 	for($i = 0; $i < count($names); $i++)
 	{
+        startSign:
 		$json = sign($names[$i], $cookie);
 		$json = json_decode($json);
 		
 		//错误码
 		$code = intval($json->no);
 		
+		
 		if($code == 1101)
 		{
-			logWarn("你已经签到过 ".$names[$i]."吧 了！");
+            //今天已签到过
 		}
+		//账号未登录
 		else if($code == 1990055)
 		{
 			logError("Cookie 已失效，请重新设置！");
 			logError("返回 json：".json_encode($json));
 			break;
 		}
+        else if($code == 1102){ //您签得太快了 ，先看看贴子再来签吧:)
+            logError("签到频率过快！1s 后重试...");
+            sleep(1);
+            goto startSign;
+        }
 		else if($code != 0)
 		{
 			logInfo("签到 ".$names[$i]."吧 时发生错误！");
 			logInfo("返回 json：".json_encode($json));
 		}
 		else
-		{
-			logInfo("签到 ".$names[$i]."吧 成功。");
 			$signed++;
-		}
+		
+		usleep(100000); //= 0.1s
 	}
 	
 	$t2 = microtime(true);
