@@ -4,8 +4,9 @@
 
 logSetName("TieBa");
 logInfo("开始签到百度贴吧");
-
+$nBuilder->append("百度贴吧", "---%s---","## %s");
 watchStart();
+
 //读取 Cookie
 foreach($tieba as $t)
 {
@@ -55,6 +56,8 @@ function sign(string $name, string $cookie, string $captchaVcode = null, string 
  * @throws Exception
  */
 function signAll(string $cookie){
+	global $nBuilder; //来自 start.php
+	$errMsg = null;
 	$names = getAllBars($cookie);
 	$signed = 0; //签到成功个数
 	
@@ -68,8 +71,9 @@ function signAll(string $cookie){
 
         startSign: //-------goto 到这里-------
 		if($retryCount >= $maxRetryCount){
-			logError("签到贴吧 ".$names[$i]." 时重试次数过多！签到终止！");
-			return;
+			logError("签到贴吧 ".$names[$i]."吧 时重试次数过多！签到终止！");
+			$nBuilder->append("签到贴吧 ".$names[$i]."吧 时重试次数过多！签到终止！");
+			break;
 		}
 
 		$json = sign($names[$i], $cookie, $captchaInput, $captchaVcode);
@@ -92,6 +96,7 @@ function signAll(string $cookie){
 			case 1990055: //未登录
 				logError("Cookie 已失效，请重新设置！");
 				logError("返回 json：".json_encode($json));
+				$errMsg = "Cookie 已失效，请重新设置！";
 				break;
 			case 1102: //您签得太快了 ，先看看贴子再来签吧:)
 				logError("签到频率过快！1s 后重试...($retryCount/$maxRetryCount)");
@@ -108,6 +113,7 @@ function signAll(string $cookie){
 					->asJSON();
 				if($ret->anti_valve_err_no != 0){
 					logError("验证失败！终止。");
+					$errMsg = "签到 ".$names[$i]."吧 时验证码验证失败。";
 					break;
 				}
 				else{
@@ -130,6 +136,9 @@ function signAll(string $cookie){
 
 	$t2 = microtime(true);
 	logInfo("已成功签到：".$signed."/".count($names)." 个贴吧。");
+	if($errMsg != null)
+		$nBuilder->append("错误：".$errMsg);
+	$nBuilder->append("已成功签到：".$signed."/".count($names)." 个贴吧。");
 }
 
 //获取所有关注的贴吧的名称

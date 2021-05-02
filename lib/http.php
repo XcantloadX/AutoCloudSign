@@ -45,37 +45,51 @@ class Http{
     private $ret;
     private $form;
     private $headers;
-    
-    function __construct(string $url){
+    private $url;
+    private $query;
+
+    public function __construct(string $url){
         $this->ch = curl_init();
-        curl_setopt($this->ch, CURLOPT_URL, $url);
+        $this->url = $url;
         curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false); //忽略 HTTPS 证书错误
         $this->setUA("Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36");
     }
+
+    function __destruct(){
+        curl_close($this->ch);
+    }
     
-    function setUA(string $ua) : Http{
+    public function setUA(string $ua) : Http{
         curl_setopt($this->ch, CURLOPT_USERAGENT, $ua); //设置 UA
         return $this;
     }
 
-    function addHeader(string $h) : Http{
+    public function addHeader(string $h) : Http{
         array_push($this->headers, $h);
         return $this;
     }
     
-    function setCookie(string $cookie) : Http{
+    public function setCookie(string $cookie) : Http{
         curl_setopt($this->ch, CURLOPT_COOKIE, $cookie);
         return $this;
     }
     
     /**
+    * 设置 url 参数
+    */
+    public function buildQuery(array $query) : Http{
+        $this->query = http_build_query($query);
+        return $this;
+    }
+
+    /**
      *自动将 json 文本解码
     */
-    function asJSON() : object{
+    public function asJSON() : object{
         return json_decode($this->ret);
     }
 
-    function buildPostForm(array $form) : Http{
+    public function buildPostForm(array $form) : Http{
         $this->form = http_build_query($form);
 
         return $this;
@@ -84,7 +98,8 @@ class Http{
     /**
     * 发送 Get 请求
     */
-    function get() : Http{
+    public function get() : Http{
+        curl_setopt($this->ch, CURLOPT_URL, $this->url."?".$this->query);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); //返回内容储存到变量中
         curl_setopt($this->ch, CURLOPT_HEADER, $this->headers);
         $this->ret = curl_exec($this->ch);
@@ -95,7 +110,8 @@ class Http{
      * 发送 POST 请求
      * @param string $data 要 POST 的数据
      */
-    function post(string $data) : Http{
+    public function post(string $data) : Http{
+        curl_setopt($this->ch, CURLOPT_URL, $this->url."?".$this->query);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); //返回内容储存到变量中
         curl_setopt($this->ch, CURLOPT_POST, true); // 发送 POST 请求
         curl_setopt($this->ch, CURLOPT_HEADER, $this->headers);
@@ -108,7 +124,7 @@ class Http{
      * @param array $form 表单
      * @return $this 本身
      */
-    function postForm(array $form) : Http{
+    public function postForm(array $form) : Http{
         return $this->post(http_build_query($form));
     }
 }
