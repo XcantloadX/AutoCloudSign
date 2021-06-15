@@ -1,6 +1,10 @@
 <?php
 //@name 百度贴吧
 //@site tieba.baidu.com
+//@conf.cookie $tieba
+
+if(count($tieba) <= 0)
+	return;
 
 logSetName("TieBa");
 logInfo("开始签到百度贴吧");

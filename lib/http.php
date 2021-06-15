@@ -89,6 +89,13 @@ class Http{
         return json_decode($this->ret);
     }
 
+    /**
+     * 获取返回结果
+     */
+    public function asString() : string{
+        return $this->ret;
+    }
+
     public function buildPostForm(array $form) : Http{
         $this->form = http_build_query($form);
 

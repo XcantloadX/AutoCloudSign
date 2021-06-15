@@ -1,6 +1,6 @@
 <?php
 //@name 哔哩哔哩
-
+//@site bilibili.com
 
 logSetName("Bilibili");
 logInfo("开始签到哔哩哔哩");
@@ -27,11 +27,10 @@ function signin($cookie){
 
     //主站
 	//带 Cookie 访问该 API 就可以签到
-	$ret = hGet(array(
-		"url" => "http://api.bilibili.com/x/web-interface/nav",
-		"cookie" => $cookie
-	));
-	$json = json_decode($ret);
+    $json = newHttp("http://api.bilibili.com/x/web-interface/nav")
+            ->setCookie($cookie)
+            ->get()
+            ->asJSON();
     $name = $json->data->uname;
 	$nBuilder->append("@".$name, "%s", "### %s");
 
