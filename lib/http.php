@@ -86,6 +86,7 @@ class Http{
      *自动将 json 文本解码
     */
     public function asJSON() : object{
+        curl_close($this->ch);
         return json_decode($this->ret);
     }
 
@@ -93,6 +94,7 @@ class Http{
      * 获取返回结果
      */
     public function asString() : string{
+        curl_close($this->ch);
         return $this->ret;
     }
 
