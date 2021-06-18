@@ -119,7 +119,7 @@ class Http{
      * 发送 POST 请求
      * @param string $data 要 POST 的数据
      */
-    public function post(string $data) : Http{
+    public function post(string $data = null) : Http{
         curl_setopt($this->ch, CURLOPT_URL, $this->url."?".$this->query);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); //返回内容储存到变量中
         curl_setopt($this->ch, CURLOPT_POST, true); // 发送 POST 请求
