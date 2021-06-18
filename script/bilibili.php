@@ -48,8 +48,8 @@ class Bilibili implements Runner
             $nBuilder->append("未知错误！code=".$json->code);
             $nBuilder->append("返回 json: ".$ret, "%s", "返回 json:".PHP_EOL."```".PHP_EOL.$ret.PHP_EOL."```");
         }
-        $nBuilder->append("硬币：".getCoinNum($cookie));
-        logInfo("账号 @".$name." 主站签到成功。"."硬币数量：".getCoinNum($cookie));
+        $nBuilder->append("硬币：".$this->getCoinNum($cookie));
+        logInfo("账号 @".$name." 主站签到成功。"."硬币数量：".$this->getCoinNum($cookie));
     
         //直播
         $ret = null;

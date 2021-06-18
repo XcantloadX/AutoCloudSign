@@ -54,7 +54,7 @@ class TieBa implements Runner
     {
         global $nBuilder; //来自 start.php
         $errMsg = null;
-        $names = getAllBars($cookie);
+        $names = $this->getAllBars($cookie);
         $signed = 0; //签到成功个数
     
         //循环签到所有贴吧
@@ -72,7 +72,7 @@ class TieBa implements Runner
             	break;
         	}
 
-            $json = sign($names[$i], $cookie, $captchaInput, $captchaVcode);
+            $json = $this->sign($names[$i], $cookie, $captchaInput, $captchaVcode);
             $json = json_decode($json);
         
             //错误码处理
