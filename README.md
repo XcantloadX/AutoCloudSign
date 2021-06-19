@@ -15,6 +15,7 @@
 把项目上传到任意一个支持 curl 的 PHP 空间/VPS 上  
 按照注释修改`conf.php`的内容，在`cookies.php`里填好 cookie  
 然后定时访问`start.php`即可  
+**要求 PHP 版本 >= 7.1**
 
 ## 自定义网站
 本项目支持自定义签到脚本  
