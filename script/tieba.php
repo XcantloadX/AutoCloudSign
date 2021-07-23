@@ -1,17 +1,14 @@
 <?php
 //@id TieBa
 //@name 百度贴吧
+//@icon https://www.baidu.com/favicon.ico
 //@site tieba.baidu.com
 
-class TieBa implements Runner
+class TieBa extends Runner
 {
-    public function run()
+    public function run(string $aid, array $data)
     {
-        global $tieba, $nBuilder;
-        //遍历所有 Cookie，签到
-        foreach ($tieba as $t) {
-            $this->signAll($t);
-        }
+        $this->signAll($data["cookie"]);
     }
     
     /** 签到单个贴吧
@@ -52,7 +49,6 @@ class TieBa implements Runner
      */
     private function signAll(string $cookie)
     {
-        global $nBuilder; //来自 start.php
         $errMsg = null;
         $names = $this->getAllBars($cookie);
         $signed = 0; //签到成功个数
@@ -68,7 +64,7 @@ class TieBa implements Runner
         startSign: //-------goto 到这里-------
         	if ($retryCount >= $maxRetryCount) {
             	logError("签到贴吧 ".$names[$i]."吧 时重试次数过多！签到终止！");
-            	$nBuilder->append("签到贴吧 ".$names[$i]."吧 时重试次数过多！签到终止！");
+            	$this->nb->append("签到贴吧 ".$names[$i]."吧 时重试次数过多！签到终止！");
             	break;
         	}
 
@@ -136,9 +132,9 @@ class TieBa implements Runner
         $t2 = microtime(true);
         logInfo("已成功签到：".$signed."/".count($names)." 个贴吧。");
         if ($errMsg != null) {
-            $nBuilder->append("错误：".$errMsg);
+            $this->nb->append("错误：".$errMsg);
         }
-        $nBuilder->append("已成功签到：".$signed."/".count($names)." 个贴吧。");
+        $this->nb->append("已成功签到：".$signed."/".count($names)." 个贴吧。");
     }
 
     //获取所有关注的贴吧的名称

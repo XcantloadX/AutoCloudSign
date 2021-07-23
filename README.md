@@ -1,6 +1,7 @@
 # 云签到
 使用 PHP 编写的简易云签到工具，只适合个人使用，不需要数据库  
 支持多账号  
+**此分支新增前端界面**  
 
 ## 特性
 * 支持 Qmsg/Server酱 推送  
@@ -24,17 +25,23 @@
 <?php
 //@id 脚本ID
 //@name 脚本名称
+//@icon 脚本图标，显示在 WebUI 上
 //@site 目标网站域名，这个目前没用
 
-//类名必须和 ID 一样！
-class NAME implements Runner{
-    public function run()
+//类名必须和 ID 一样，大小写必须相同！
+//文件名必须和 ID 一样，而且文件名必须全小写！
+class NAME extends Runner{
+    public function run(string $aid, array $data)
     {
-        //$COOKIE 变量来自 cookies.php，你可以在那里面添加新的变量
+        //若使用 cookies.php：
+        //TODO...
+        //若使用 accounts.json（通过 UI 设置）：
+        //$aid 为账号 ID（account id），$data 为对应账号的信息，参考 account.json
+        
         //$nBuilder 为通知推送类，用法参考 /lib/notification.php
-        global $COOKIE, $nBuilder; 
-        //在这里写代码...
-
+        
+        $cookie = $data["cookie"];
+        //签到...
     }
 }
 ```

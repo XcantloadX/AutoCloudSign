@@ -1,0 +1,13 @@
+.script{
+	margin-bottom: 10px;
+}
+
+/*小屏幕上按钮会自动换行，这是为了避免太挤*/
+.script-name{
+	margin-bottom: 10px;
+}
+
+.website-icon{
+	width: 32px;
+	height: 32px;
+}
