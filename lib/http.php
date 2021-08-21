@@ -89,7 +89,7 @@ class Http{
      *获取响应并自动解码 json
      * @return object 响应
     */
-    public function asJSON() : object{
+    public function asJSON(){
         return json_decode($this->ret);
     }
 
