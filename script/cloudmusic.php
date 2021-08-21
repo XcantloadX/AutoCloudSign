@@ -1,22 +1,18 @@
 <?php
 //@id CloudMusic
 //@name 网易云音乐
+//@icon https://s1.music.126.net/style/favicon.ico?v20180823
 //@site music.163.com
 
-class CloudMusic implements Runner
+class CloudMusic extends Runner
 {
-    public function run()
+    public function run(string $aid, array $data)
     {
-        global $cloudmusic, $nBuilder;
-        //遍历所有 Cookie，签到
-        foreach ($cloudmusic as $c) {
-            $this->signin($c);
-        }
+        $this->signin($data["cookie"]);
     }
 
     private function signin($cookie)
     {
-        global $nBuilder;
 
         $api = new API();
         //移动端
@@ -25,21 +21,21 @@ class CloudMusic implements Runner
         switch ($json->code) {
     case 301:
         logError("Cookie 已失效！");
-        $nBuilder->append("Cookie 已失效！");
+        $this->notification->append("Cookie 已失效！");
         return;
     case -2:
         logInfo("移动端重复签到");
-        $nBuilder->append("移动端已签到");
+        $this->notification->append("移动端已签到");
         break;
     case 200:
         $point = $json->point;
         logInfo("移动端已签到，云贝 +".$point);
-        $nBuilder->append("移动端已签到，云贝 +".$point);
+        $this->notification->append("移动端已签到，云贝 +".$point);
         break;
     default:
         logError("未知错误代码 code=".$json->code);
         logError("返回: ".$ret);
-        $nBuilder->append("签到移动端时出错 code=".$json->code."，请检查运行日志！");
+        $this->notification->append("签到移动端时出错 code=".$json->code."，请检查运行日志！");
         break;
     }
 
@@ -52,26 +48,27 @@ class CloudMusic implements Runner
         return;
     case -2:
         logInfo("PC 端重复签到");
-        $nBuilder->append("PC 端已签到");
+        $this->notification->append("PC 端已签到");
         break;
     case 200:
         $point = $json->point;
         logInfo("PC 端已签到，云贝 +".$point);
-        $nBuilder->append("PC 端已签到，云贝 +".$point);
+        $this->notification->append("PC 端已签到，云贝 +".$point);
         break;
     default:
         logError("未知错误代码 code=".$json->code);
         logError("返回: ".$ret);
-        $nBuilder->append("签到 PC 端时出错 code=".$json->code."，请检查运行日志！");
+        $this->notification->append("签到 PC 端时出错 code=".$json->code."，请检查运行日志！");
         break;
     }
         $signedDays = $api->getYunbeiInfo($cookie)->data->days;
         $yunbeis = $api->getYunbeiCount($cookie);
         logInfo("已签 $signedDays 天，云贝数量 $yunbeis");
-        $nBuilder->append("已签 $signedDays 天，云贝数量 $yunbeis");
+        $this->notification->append("已签 $signedDays 天，云贝数量 $yunbeis");
     }
 }
 
+//修改自：
 //https://github.com/ZainCheung/netease-cloud-api
 class API
 {
@@ -123,7 +120,7 @@ class API
     }
 
     //云贝签到信息
-    public function getYunbeiInfo(string $cookie = "") : object
+    public function getYunbeiInfo(string $cookie = "")
     {
         $url = "https://music.163.com/api/point/signed/get";
         return newHttp($url)

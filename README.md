@@ -1,15 +1,15 @@
 # 云签到
 使用 PHP 编写的简易云签到工具，只适合个人使用，不需要数据库  
-支持多账号  
+支持多账号
 
 ## 特性
 * 支持 Qmsg/Server酱 推送  
-* 已支持站点  
-    * 百度贴吧
-    * 哔哩哔哩 硬币签到
-    * 哔哩哔哩直播
-    * 哔哩哔哩漫画
-    * 网易云音乐 积分签到
+* 已支持站点（W->Web/网页端，M->Mobile/移动端）  
+    * W  百度贴吧
+    * W  哔哩哔哩 硬币签到
+    * W  哔哩哔哩直播
+    * M  哔哩哔哩漫画
+    * MW 网易云音乐 云贝签到
 
 ## 安装
 把项目上传到任意一个支持 curl 的 PHP 空间/VPS 上  
@@ -24,17 +24,36 @@
 <?php
 //@id 脚本ID
 //@name 脚本名称
+//@icon 脚本图标，显示在 WebUI 上
 //@site 目标网站域名，这个目前没用
 
-//类名必须和 ID 一样！
-class NAME implements Runner{
-    public function run()
+//类名必须和 ID 一样，大小写必须相同！
+//文件名必须和 ID 一样，而且文件名必须全小写！
+class NAME extends Runner{
+    public function run(string $aid, array $data)
     {
-        //$COOKIE 变量来自 cookies.php，你可以在那里面添加新的变量
-        //$nBuilder 为通知推送类，用法参考 /lib/notification.php
-        global $COOKIE, $nBuilder; 
-        //在这里写代码...
+        //若使用 cookies.php：
+        //在 cookies.php 下面新增一条变量 $ID名 = array();
+        //若使用 accounts.json（通过 UI 设置）：
+        //无需特别操作
+        
+        //$aid 为账号 ID（account id）
+        //$data 为对应账号的信息，结构如下
+        /* {
+         * "id": "脚本ID",
+         * "name": "示例账号",
+         * "cookie": "*****",
+         * "note": "用户备注",
+         * "data": "脚本数据，不同脚本的数据可以有不同的作用（暂时未实现）"
+         * }
+         */
 
+        $cookie = $data["cookie"];
+        //签到...
+        //.................
+        
+        //$this->notification 为通知推送类，用法参考 /lib/notification.php
+        $this->notification->append("账号 @".$data["name"]." 签到成功", "%s", "### %s");
     }
 }
 ```

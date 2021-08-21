@@ -85,13 +85,15 @@ class Http{
 
     /**
      *自动将 json 文本解码
+     * @return object
     */
-    public function asJSON() : object{
+    public function asJSON(){
         return json_decode($this->ret);
     }
 
     /**
      * 获取返回结果
+     * @return string
      */
     public function asString() : string{
         return $this->ret;
