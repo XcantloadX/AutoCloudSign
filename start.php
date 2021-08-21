@@ -79,7 +79,7 @@ foreach($files as $file)
         //运行
         //TODO 检查类 $_id 是否存在
         $ins = new $_id(); //名为变量 $_id 的值的类
-        $ins->setNB($nBuilder); //设置通知推送
+        $ins->setNotification($nBuilder); //设置通知推送
         
         foreach ($accounts as $aid => $data) {
             $ins->run($aid, $data); //运行 run() 方法

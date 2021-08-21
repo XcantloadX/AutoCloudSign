@@ -4,21 +4,13 @@
 //@site bigfun.cn
 //@icon https://www.bigfun.cn/favicon.ico
 
-class BigFun implements Runner{
-    public function run(){
-        global $bigfun, $nBuilder;
-        if (count($bigfun) <= 0) {
-            return;
-        }
-        
-        //遍历所有 Cookie，签到
-        foreach ($bigfun as $b) {
-            $this->signin($b);
-        }
+class BigFun extends Runner {
+    public function run(string $aid, array $data) {
+        $this->signin($data["cookie"]);
+
     }
 
     private function signin(string $cookie){
-    	global $nBuilder; //来自 start.php
     	//签到
     	$crsf = $this->getCRSF($cookie);
     	$ret = newHttp("https://www.bigfun.cn/api/client/web?method=checkIn")
@@ -26,6 +18,11 @@ class BigFun implements Runner{
     			->addHeader("x-csrf-token: ".$crsf)
     			->post()
     			->asJSON();
+    	if(isset($ret->errors) && $ret->errors->code == 403){
+    	    logError("Cookie 已失效！");
+            $this->notification->append("Cookie 已失效！");
+    	    return;
+        }
     	//获取用户信息
     	$info = $this->getUserInfo($cookie);
     	$name = $info->data[0]->nickname;
@@ -36,14 +33,14 @@ class BigFun implements Runner{
     	$exp = $info->data[0]->current_exp;
 
     	//输出信息
-    	$nBuilder->append("@".$name, "%s", "### %s");
+    	$this->notification->append("@".$name, "%s", "### %s");
     	if($ret->data[0]->msg == ""){
     		logInfo("账号 @$name 今天已签到");
-    		$nBuilder->append("账号 @$name 今天已签到");
+            $this->notification->append("账号 @$name 今天已签到");
     	}
     	else{
-    		logInfo("账号 @$name 签到成功，".$ret->data[0]->msg."，目前 LV.$level，升级还需 $exp/$upgradeExp");
-    		$nBuilder->append("账号 @$name 签到成功，".$ret->data[0]->msg."，目前 LV.$level，升级还需 $exp/$upgradeExp");
+    		logInfo("账号 @$name 签到成功，".$ret->data[0]->msg."，目前 LV.$level ，升级还需 $exp/$upgradeExp");
+            $this->notification->append("账号 @$name 签到成功，".$ret->data[0]->msg."，目前 LV.$level ，升级还需 $exp/$upgradeExp");
     	}
     }
 
