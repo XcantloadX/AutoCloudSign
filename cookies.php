@@ -25,3 +25,8 @@ $Bilibili = array(
 $CloudMusic = array(
 
 );
+
+//毕方 bigfun.cn
+$bigfun = array(
+
+);

@@ -1,25 +1,32 @@
 # 云签到
 使用 PHP 编写的简易云签到工具，只适合个人使用，不需要数据库  
-支持多账号
 
 ## 特性
-* 支持 Qmsg/Server酱 推送  
+* 支持 QQ（Qmsg）和微信（Server酱） 推送  
+* 支持多账号 
 * 已支持站点（W->Web/网页端，M->Mobile/移动端）  
-    * W  百度贴吧
-    * W  哔哩哔哩 硬币签到
-    * W  哔哩哔哩直播
-    * M  哔哩哔哩漫画
-    * MW 网易云音乐 云贝签到
+    * 百度
+      * W  百度贴吧
+    * 哔哩哔哩
+      * W  主站 硬币签到
+      * W  直播
+      * M  漫画
+      * W  [毕方](https://bigfun.cn)（Cookie 与B站独立）
+    * MW  网易云音乐 云贝签到
 
 ## 安装
-把项目上传到任意一个支持 curl 的 PHP 空间/VPS 上  
-按照注释修改`conf.php`的内容，在`cookies.php`里填好 cookie  
-然后定时访问`start.php`即可  
-**要求 PHP 版本 >= 7.1**
+1. Clone 项目到任意一个支持 curl 的 PHP 空间/VPS 上  
+2. 按照注释修改`conf.php`的内容，在`cookies.php`里填好 cookie  
+3. 可选：搭建 PHP 服务器
+4. 若搭建了服务器，定时访问`http://localhost/start.php`；若没有，定时运行 `php start.php`
 
-## 自定义网站
+**要求 PHP 版本 >= 7.1**  
+**详细步骤见 [安装 - Wiki](https://github.com/XcantloadX/AutoCloudSign/wiki/%E5%AE%89%E8%A3%85)**
+
+## 自定义
 本项目支持自定义签到脚本  
 新建一个 php 脚本放在 `/script` 目录下  
+
 ```php
 <?php
 //@id 脚本ID
