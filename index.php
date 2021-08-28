@@ -1,2 +1,3 @@
 <?php
-header("location: web/");
+//header("location: web/");
+echo "暂无 UI";

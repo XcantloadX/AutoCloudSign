@@ -41,15 +41,13 @@ if($site != "all"){
     exit;
 }
 
-
-
 //获取所有签到脚本
 $files = scandir(SIGN_SCRIPT_PATH);
 
 //遍历导入并运行所有脚本
 foreach($files as $file)
 {
-	if($file != "." && $file != ".." && $file != "base.php" && strpos($file, ".php") > 0){
+    if($file != "." && $file != ".." && $file != "base.php" && strpos($file, ".php") > 0){
         $path = SIGN_SCRIPT_PATH."/".$file;
         
         try {
@@ -64,13 +62,13 @@ foreach($files as $file)
         $_name = $attrs["name"];
 
         //导入脚本
-        include($path); 
+        include_once($path); 
 
         $accounts = AM\query($_id); //获取所有账号
         //若此脚本没有对应的账号，跳过
         if(count($accounts) <= 0)
             continue;
-        
+
         logSetName($_id);
         logInfo("开始签到$_name");
         watchStart();
@@ -87,9 +85,9 @@ foreach($files as $file)
             
         watchEnd();
         logInfo("耗时 ".watchGetSec()." 秒。");
-        logInfo("完成");
     
     }
 }
 logInfo("已完成所有签到任务");
 $nBuilder->push(); //推送通知
+logInfo("完成");

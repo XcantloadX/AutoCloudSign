@@ -7,8 +7,8 @@ include_once "conf.php";
  * @param string $msg 消息
  * @return object $ret Qmsg API 返回结果
  */
-function pushQQMsg(string $msg) : object{
-	global $qmsg_key;
+function pushQQMsg(string $msg){
+	$qmsg_key = Settings::$qmsg_key;
 	$ret = newHttp("https://qmsg.zendee.cn/send/".$qmsg_key)
 		->buildQuery(array("msg" => $msg))
 		->get()
@@ -16,8 +16,8 @@ function pushQQMsg(string $msg) : object{
 	return $ret;
 }
 
-function pushWechatMsg(string $title, string $msg) : object{
-	global $sct_key;
+function pushWechatMsg(string $title, string $msg) {
+	$sct_key = Settings::$sct_key;
 	$ret = newHttp("https://sctapi.ftqq.com/".$sct_key.".send")
 		->buildQuery(array("title" => $title, "desp" => $msg))
 		->get()
@@ -55,14 +55,18 @@ class NotificationBuilder{
 	}
 
 	public function push(){
-		global $qmsg_key, $sct_key;
+		$qmsg_key = Settings::$qmsg_key;
+		$sct_key = Settings::$sct_key;
+
 		if($qmsg_key != null){
+			logInfo("正在向 QQ 推送消息");
 			$ret = pushQQMsg($this->msg);
 			if(!$ret->success){
 				//TODO 错误处理
 			}
 		}
 		if($sct_key != null){
+			logInfo("正在向微信推送消息");
 			$ret = pushWechatMsg($this->title, $this->mdMsg);
 			if($ret->code != 0){
 				$errmsg = $ret->data->error;

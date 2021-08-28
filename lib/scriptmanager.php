@@ -67,15 +67,9 @@ function getAttributes_(string $filepath) : array{
 	//循环获取所有行
 	while(!feof($f)){
 		$line = fgets($f);
-		if(substr($line, 0, strlen("//@")) == "//@"){
-			//获取属性
-			$line = str_replace("//@", "", $line);
-			$arr = explode(" ", $line);
-			//检查脚本合格性
-			if(count($arr) < 2){
-				throw new ScriptException("无效的脚本属性 $arr[0]", $filepath);
-			}
-			$attr[$arr[0]] = trim($arr[1]); //trim 删除末尾 \n
+		preg_match("/\/\/@(.*?)\s+(.*)/", $line, $matches);
+		if(count($matches) >= 3){
+			$attr[$matches[1]] = trim($matches[2]);
 		}
 		else{
 			break;

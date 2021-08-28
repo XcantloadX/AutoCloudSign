@@ -39,9 +39,9 @@ function add(string $script, string $name, string $cookie, string $note, array $
  * @return array               查询结果
  */
 function query(string $script = null) {
-    //TODO 修改全局变量（储存设置的方式）
+    global $rootPath;
     //accounts.json
-    if ($GLOBALS["enableWebUI"]) {
+    if (\Settings::$enableWebUI) {
         $data = _read();
         if ($script == null || $script == "")
             return $data;
@@ -57,8 +57,8 @@ function query(string $script = null) {
     } //cookies.php
     else {
         $accounts = array();
-        if (isset($GLOBALS[$script])) {
-            foreach ($GLOBALS[$script] as $cookie) {
+        if (isset(\Settings::$cookie[$script])) {
+            foreach (\Settings::$cookie[$script] as $cookie) {
                 array_push($accounts, array(
                     "id" => $script,
                     "name" => "",
