@@ -11,7 +11,7 @@ class Settings{
     //---------通知------------
     //设置为 null 表示禁用
     //Qmsg QQ 消息推送（qmsg.zendee.cn）
-    public static $qmsg_key = "e9184ea73fa58dd046056f12483c3cd5";
+    public static $qmsg_key = "";
     //server酱 Turbo 版微信消息推送
     public static $sct_key = null;
 
