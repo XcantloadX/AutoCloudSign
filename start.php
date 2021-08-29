@@ -6,7 +6,6 @@ require_once "lib/notification.php";
 require_once "lib/accountmanager.php";
 require_once "lib/scriptmanager.php";
 require_once "conf.php";
-require_once "cookies.php";
 require_once "script/base.php";
 use AccountManager as AM;
 use ScriptManager as SM;
