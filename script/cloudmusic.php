@@ -113,8 +113,20 @@ class API
     {
         $url="https://music.163.com/weapi/point/dailyTask";
         $data=array("type" => $signType); //type=0 Android 端签到
+
+        //伪造 IP
+        //网易云貌似把腾讯云函数的 IP 拉进了黑名单，云函数测试返回 403 请稍后再试，本地测试一点问题都没有
+        $rndNum = rand(0, 255);
+        if(isset($_SERVER["CF"]) && $_SERVER["CF"]){
+            $header = "X-Real-IP: 211.161.244.$rndNum";
+            logInfo("检测到云函数环境，使用伪造 IP：211.161.244.$rndNum");
+        }
+        else
+            $header = "";
+        
         return newHttp($url)
                 ->setCookie($cookie)
+                ->addHeader($header)
                 ->postForm($this->prepare($data))
                 ->asString();
     }
