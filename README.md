@@ -21,8 +21,8 @@
 3. 可选：搭建 PHP 服务器
 4. 若搭建了服务器，定时访问`http://localhost/start.php`；若没有，定时运行 `php start.php`
 
-**要求 PHP 版本 >= 7.1**  
-**详细步骤见 [安装 - Wiki](https://github.com/XcantloadX/AutoCloudSign/wiki/%E5%AE%89%E8%A3%85)**
+**要求 PHP 版本 >= 7**  
+**详细步骤见 [安装 - Wiki](https://github.com/XcantloadX/AutoCloudSign/wiki/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B)**
 
 ## 自定义
 本项目支持自定义签到脚本  
