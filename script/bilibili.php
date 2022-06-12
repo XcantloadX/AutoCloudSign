@@ -26,7 +26,6 @@ class Bilibili extends Runner
             ->setCookie($cookie)
             ->get()
             ->asJSON();
-
         //错误检查
         if ($json->code == -101) {
             $this->notification->append("Cookie 已失效！请重新设置。");
@@ -88,12 +87,7 @@ class Bilibili extends Runner
     //获取硬币数量
     private function getCoinNum($cookie)
     {
-        $json = hGet(array(
-            "url" => "http://account.bilibili.com/site/getCoin",
-            "cookie" => $cookie
-        ));
-    
-        $json = json_decode($json);
+        $json = newHttp("http://account.bilibili.com/site/getCoin")->setCookie($cookie)->get()->asJSON();
         return $json->data->money;
     }
 }

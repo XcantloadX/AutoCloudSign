@@ -1,4 +1,5 @@
 <?php
+require_once "vendor/autoload.php";
 require_once "lib/http.php";
 require_once "lib/timewatch.php";
 require_once "lib/log.php";
@@ -87,6 +88,7 @@ foreach($files as $file)
     
     }
 }
+logSetName("Default");
 logInfo("已完成所有签到任务");
 $nBuilder->push(); //推送通知
 logInfo("完成");

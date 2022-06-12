@@ -1,4 +1,5 @@
 <?php
+use WpOrg\Requests\Requests;
 function http($params)
 {
 	if(!isset($params["url"]))
@@ -41,7 +42,6 @@ function newHttp(string $url){
 }
 
 class Http{
-    private $ch;
     private $ret;
     private $form;
     private $headers;
@@ -49,21 +49,17 @@ class Http{
     private $query;
 
     public function __construct(string $url){
-        $this->ch = curl_init();
         $this->url = $url;
         $this->headers = array();
         $this->query = null;
-        curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false); //忽略 HTTPS 证书错误
         $this->setUA("Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36");
     }
 
     function __destruct(){
-        //防止内存泄露
-        curl_close($this->ch);
     }
     
     public function setUA(string $ua) : Http{
-        curl_setopt($this->ch, CURLOPT_USERAGENT, $ua); //设置 UA
+        $this->headers["User-Agent"] = $ua;
         return $this;
     }
 
@@ -73,7 +69,7 @@ class Http{
     }
     
     public function setCookie(string $cookie) : Http{
-        curl_setopt($this->ch, CURLOPT_COOKIE, $cookie);
+        $this->headers["Cookie"] = $cookie;
         return $this;
     }
     
@@ -126,13 +122,10 @@ class Http{
     * 发送 Get 请求
     */
     public function get() : Http{
+		$url = $this->url;
         if($this->query != null)
-            curl_setopt($this->ch, CURLOPT_URL, $this->url."?".$this->query);
-        else
-            curl_setopt($this->ch, CURLOPT_URL, $this->url);
-        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); //返回内容储存到变量中
-        curl_setopt($this->ch, CURLOPT_HTTPHEADER, $this->headers);
-        $this->ret = curl_exec($this->ch);
+            $url = $this->url."?".$this->query;
+        $this->ret = Requests::get($url, $this->headers, array('verify' => false))->body;
         return $this;
     }
 
@@ -141,15 +134,11 @@ class Http{
      * @param string $data 要 POST 的数据
      */
     public function post(string $data = null) : Http{
+		$url = $this->url;
         if($this->query != null)
-            curl_setopt($this->ch, CURLOPT_URL, $this->url."?".$this->query);
-        else
-            curl_setopt($this->ch, CURLOPT_URL, $this->url);
-        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); //返回内容储存到变量中
-        curl_setopt($this->ch, CURLOPT_POST, true); // 发送 POST 请求
-        curl_setopt($this->ch, CURLOPT_HTTPHEADER, $this->headers);
-        curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
-        $this->ret = curl_exec($this->ch);
+            $url = $this->url."?".$this->query;
+		
+         $this->ret = Requests::post($url, $this->headers, $data, array('verify' => false))->body;
         return $this;
     }
 

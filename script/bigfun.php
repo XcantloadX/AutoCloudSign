@@ -15,7 +15,7 @@ class BigFun extends Runner {
     	$crsf = $this->getCRSF($cookie);
     	$ret = newHttp("https://www.bigfun.cn/api/client/web?method=checkIn")
     			->setCookie($cookie)
-    			->addHeader("x-csrf-token: ".$crsf)
+    			->addHeader("x-csrf-token", $crsf)
     			->post()
     			->asJSON();
     	if(isset($ret->errors) && $ret->errors->code == 403){
@@ -56,7 +56,7 @@ class BigFun extends Runner {
     	$crsf = $this->getCRSF($cookie);
     	return newHttp("https://www.bigfun.cn/api/client/web?method=getUserProfile")
     			->setCookie($cookie)
-    			->addHeader("x-csrf-token: ".$crsf)
+    			->addHeader("x-csrf-token", $crsf)
     			->get()
     			->asJSON();
     }

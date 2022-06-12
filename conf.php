@@ -28,25 +28,21 @@ class Settings{
         );
         */
 
-        //百度贴吧
+     	//百度贴吧
         "TieBa" => array(
-
+			
         ),
 
         //哔哩哔哩
         "Bilibili" => array(
-
-        ),
+			
+		),
 
         //网易云音乐
         "CloudMusic" => array(
 
-        ),
+		),
 
-        //毕方 bigfun.cn
-        "BigFun" => array(
-
-        ),
 
         //小黑盒
         "XiaoHeiHe" => array(
@@ -61,8 +57,11 @@ class Settings{
         //精易论坛 bbs.125.la
         "BBS125" => array(
 
-        )
-
-
+        ),
+		
+		//微博超话
+		"WeiBoChaoHua" => array(
+		
+		),
     );
 }
