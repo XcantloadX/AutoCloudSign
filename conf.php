@@ -37,6 +37,11 @@ class Settings{
         "Bilibili" => array(
 			
 		),
+        
+        //毕方 bigfun.cn
+        "BigFun" => array(
+
+        ),
 
         //网易云音乐
         "CloudMusic" => array(
