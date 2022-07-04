@@ -42,8 +42,9 @@ function newHttp(string $url){
 }
 
 class Http{
-    private $ret;
-    private $form;
+    private $request;
+    private $response;
+
     private $headers;
     private $url;
     private $query;
@@ -63,8 +64,8 @@ class Http{
         return $this;
     }
 
-    public function addHeader(string $h) : Http{
-        array_push($this->headers, $h);
+    public function addHeader(string $header, string $value) : Http{
+        $this->headers[$header] = $value;
         return $this;
     }
     
@@ -86,7 +87,7 @@ class Http{
      * @return object 响应
     */
     public function asJSON(){
-        return json_decode($this->ret);
+        return json_decode($this->response->body);
     }
 
     /**
@@ -94,7 +95,7 @@ class Http{
      * @return string 响应
      */
     public function asString() : string{
-        return $this->ret;
+        return $this->response->body;
     }
 
     /**
@@ -125,7 +126,7 @@ class Http{
 		$url = $this->url;
         if($this->query != null)
             $url = $this->url."?".$this->query;
-        $this->ret = Requests::get($url, $this->headers, array('verify' => false))->body;
+        $this->response = Requests::get($url, $this->headers, array('verify' => false));
         return $this;
     }
 
@@ -138,7 +139,7 @@ class Http{
         if($this->query != null)
             $url = $this->url."?".$this->query;
 		
-         $this->ret = Requests::post($url, $this->headers, $data, array('verify' => false))->body;
+        $this->response = Requests::post($url, $this->headers, $data, array('verify' => false));
         return $this;
     }
 
@@ -148,6 +149,27 @@ class Http{
      */
     public function postForm(array $form) : Http{
         return $this->post(http_build_query($form));
+    }
+
+    /**
+     * 输出此次请求的调试信息
+     */
+    public function printDebugMessage(){
+        //TODO 重构 logger 并增加 debug level
+        logInfo("请求头：");
+        foreach ($this->headers as $k=>$v) {
+            logInfo("$k: $v");
+        }
+        logInfo("响应体：");
+        logInfo($this->response);
+    }
+
+    public function getRequest() : \WpOrg\Requests\Response{
+        return $this->request;
+    }
+
+    public function getResponse() : \WpOrg\Requests\Response{
+        return $this->response;
     }
 }
 
