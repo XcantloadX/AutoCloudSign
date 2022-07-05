@@ -4,10 +4,12 @@
 //@icon https://www.baidu.com/favicon.ico
 //@site tieba.baidu.com
 
+//TODO 重构此类，去除 curl
 class TieBa extends Runner
 {
     public function run(string $aid, array $data)
     {
+        parent::run($aid, $data);
         $this->signAll($data["cookie"]);
     }
     

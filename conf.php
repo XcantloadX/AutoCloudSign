@@ -48,13 +48,12 @@ class Settings{
 
 		),
 
-
-        //小黑盒
+        //小黑盒 TODO
         "XiaoHeiHe" => array(
 
         ),
 
-        //和彩云
+        //和彩云 TODO 
         "HeCaiYun" => array(
 
         ),

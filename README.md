@@ -55,11 +55,14 @@ class NAME extends Runner {
          * "data": "脚本数据，不同脚本的数据可以有不同的作用（暂时未实现）"
          * }
          */
-
-        $cookie = $data["cookie"];
+        parent::run($aid, $data);
         //签到...
         //.................
-        
+        $this->session->get("URL_HERE", array("HEADER" => "VALUE")); //GET 请求
+        $this->session->post("URL_HERE", array("HEADER" => "VALUE"), "DATA"); //POST 请求
+        //HTTP 请求头里不需要加 Cookie，Cookie 会自动设置
+        //若有每个请求都需要的请求头，调用 $this->session->headers["xxxx"] = "xxxx";
+
         //$this->notification 为通知推送类，用法参考 /lib/notification.php
         $this->notification->append("账号 @".$data["name"]." 签到成功", "%s", "### %s");
     }

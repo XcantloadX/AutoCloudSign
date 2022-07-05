@@ -23,7 +23,7 @@ class BigFun extends Runner {
 		$ret = json_decode($retText);
     	if(isset($ret->errors) && $ret->errors->code == 403){
     	    logError("Cookie 已失效，请检查。若持续提示此消息，则可能是签到脚本失效，请提交 issue 反馈此 Bug。");
-			$http->printDebugMessage();
+			//$http->printDebugMessage();
             $this->notification->append("Cookie 已失效，请检查。若持续提示此消息，则可能是签到脚本失效，请提交 issue 反馈此 Bug。");
     	    return;
         }

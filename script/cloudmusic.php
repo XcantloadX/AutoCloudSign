@@ -8,6 +8,8 @@ class CloudMusic extends Runner
 {
     public function run(string $aid, array $data)
     {
+        //TODO 重构 API 类
+        parent::run($aid, $data);
         $this->signin($data["cookie"]);
     }
 

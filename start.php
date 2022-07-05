@@ -29,6 +29,7 @@ $site = "all";
 if(isset($_GET["site"]))
     $site = $_GET["site"];
 
+//TODO 修复此功能
 if($site != "all"){
     if(file_exists(SIGN_SCRIPT_PATH."/".$site.".php")){
         include(SIGN_SCRIPT_PATH."/".$site.".php");
