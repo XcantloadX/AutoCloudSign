@@ -67,5 +67,10 @@ class Settings{
 		"WeiBoChaoHua" => array(
 		
 		),
+
+        //网易云游戏
+        "NeteaseCG" => array(
+
+        )
     );
 }
