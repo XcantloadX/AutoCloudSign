@@ -71,6 +71,11 @@ class Settings{
         //网易云游戏
         "NeteaseCG" => array(
 
+        ),
+
+        //QQ 音乐
+        "QQMusic" => array(
+
         )
     );
 }
