@@ -1,13 +1,5 @@
 <?php
-require_once "vendor/autoload.php";
-require_once "lib/http.php";
-require_once "lib/timewatch.php";
-require_once "lib/log.php";
-require_once "lib/notification.php";
-require_once "lib/accountmanager.php";
-require_once "lib/scriptmanager.php";
 require_once "lib/confhelper.php";
-require_once "script/base.php";
 
 if(!file_exists("conf.php")){
     
@@ -20,6 +12,15 @@ ConfHelper::update();
 
 
 require_once "conf.php";
+require_once "vendor/autoload.php";
+require_once "lib/http.php";
+require_once "lib/timewatch.php";
+require_once "lib/log.php";
+require_once "lib/notification.php";
+require_once "lib/accountmanager.php";
+require_once "lib/scriptmanager.php";
+
+require_once "script/base.php";
 
 use AccountManager as AM;
 use ScriptManager as SM;
