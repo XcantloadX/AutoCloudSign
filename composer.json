@@ -1,5 +1,6 @@
 {
     "require": {
-        "rmccue/requests": "^2.0"
+        "rmccue/requests": "^2.0",
+        "nette/php-generator": "^3.6"
     }
 }
