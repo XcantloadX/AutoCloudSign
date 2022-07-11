@@ -5,7 +5,7 @@
 //@site weibo.com/u/
 
 class WeiBoChaoHua extends Runner {
-    public function run(string $aid, array $data) {
+    public function run(string $aid, array &$data) {
         $cookie = $data["cookie"];
 		//获取所有关注的超话
 		$list = $this->getChaoHuaList($cookie);

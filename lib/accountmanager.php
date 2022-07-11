@@ -54,17 +54,17 @@ function query(string $script = null) {
                 $ret[$aid] = $val;
         }
         return $ret;
-    } //cookies.php
+    } //conf.php
     else {
         $accounts = array();
-        if (isset(\Settings::$cookie[$script])) {
-            foreach (\Settings::$cookie[$script] as $cookie) {
+        if (isset(\ScriptStorage::$$script)) {
+            foreach (\ScriptStorage::$$script as $data) {
                 array_push($accounts, array(
                     "id" => $script,
                     "name" => "",
-                    "cookie" => $cookie,
+                    "cookie" => $data["cookie"],
                     "note" => "",
-                    "data" => null
+                    "data" => $data
                 ));
             }
         }

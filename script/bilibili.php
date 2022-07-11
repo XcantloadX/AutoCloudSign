@@ -6,7 +6,7 @@
 
 class Bilibili extends Runner
 {
-    public function run(string $aid, array $data)
+    public function run(string $aid, array &$data)
     {
         parent::run($aid, $data);
         $this->signin();

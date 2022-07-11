@@ -2,11 +2,11 @@
 //@id           BBS125
 //@name         精易论坛
 //@site         bbs.125.la
-//@description  必须用国内 ip 访问
+//@note         必须用国内 ip 访问
 
 //TODO 尝试解决 必须用国内 ip 访问 （？）
 class BBS125 extends Runner{
-    public function run(string $aid, array $data){
+    public function run(string $aid, array &$data){
         parent::run($aid, $data);
         $formhash = $this->getFormHash();
         $response = $this->session->post(

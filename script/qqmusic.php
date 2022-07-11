@@ -5,7 +5,7 @@
 //@site y.qq.com
 
 class QQMusic extends Runner {
-    public function run(string $aid, array $data) {
+    public function run(string $aid, array &$data) {
         parent::run($aid, $data);
         //https://stackoverflow.com/questions/30714638/how-can-i-parse-serverhttp-cookie-in-pure-php
         parse_str(strtr($data["cookie"], array('&' => '%26', '+' => '%2B', ';' => '&')), $cookies);

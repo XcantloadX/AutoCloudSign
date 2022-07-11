@@ -5,7 +5,7 @@
 //@icon https://www.bigfun.cn/favicon.ico
 
 class BigFun extends Runner {
-    public function run(string $aid, array $data) {
+    public function run(string $aid, array &$data) {
         $this->signin($data["cookie"]);
 
     }

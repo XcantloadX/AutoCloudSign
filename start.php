@@ -6,8 +6,21 @@ require_once "lib/log.php";
 require_once "lib/notification.php";
 require_once "lib/accountmanager.php";
 require_once "lib/scriptmanager.php";
-require_once "conf.php";
+require_once "lib/confhelper.php";
 require_once "script/base.php";
+
+if(!file_exists("conf.php")){
+    
+    ConfHelper::init();
+    echo "已创建默认 conf.php。\n";
+    echo "请修改配置后重新运行。\n";
+    exit;
+}
+ConfHelper::update();
+
+
+require_once "conf.php";
+
 use AccountManager as AM;
 use ScriptManager as SM;
 define("SIGN_SCRIPT_PATH", "script/");
@@ -65,8 +78,11 @@ foreach($files as $file)
         //导入脚本
         include_once($path); 
 
-        $accounts = AM\query($_id); //获取所有账号
-        //若此脚本没有对应的账号，跳过
+        if(!isset(ScriptStorage::$$_id)){
+            logError("脚本 ID 为 $_id 的脚本在 ScriptStorage 中无配置项，请检查 ConfHelper 是否正常调用。");
+            continue;
+        }
+        $accounts = &ScriptStorage::$$_id; //获取配置项，引用传递
         if(count($accounts) <= 0)
             continue;
 
@@ -80,8 +96,8 @@ foreach($files as $file)
         $ins = new $_id(); //名为变量 $_id 的值的类
         $ins->setNotification($nBuilder); //设置通知推送
         
-        foreach ($accounts as $aid => $data) {
-            $ins->run($aid, $data); //运行 run() 方法
+        for($i = 0; $i < count($accounts); $i++){
+            $ins->run(0, $accounts[$i]); //运行 run() 方法
         }
             
         watchEnd();
@@ -92,4 +108,5 @@ foreach($files as $file)
 logSetName("Default");
 logInfo("已完成所有签到任务");
 $nBuilder->push(); //推送通知
+ConfHelper::save(); //保存 conf.php
 logInfo("完成");

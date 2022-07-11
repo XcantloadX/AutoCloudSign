@@ -1,6 +1,4 @@
 <?php
-
-use WpOrg\Requests\Requests;
 use WpOrg\Requests\Session;
 
 abstract class Runner{
@@ -13,10 +11,10 @@ abstract class Runner{
 
 	/**
 	 * 开始签到。此方法会被 start.php 调用
-	 * @param  string $aid      账号 aid
-	 * @param  array  $data     账号的信息。格式参见 accounts.json。
+	 * @param  string $aid      账号 aid，保留参数。
+	 * @param  array  $data     储存的数据，包括 Cookie 以及脚本自定义数据。参数使用引用传递，对其进行的修改将会被保存。
 	 */
-    public function run(string $aid, array $data){
+    public function run(string $aid, array &$data){
         if($data["cookie"] == ""){
             logError("Cookie 为空。");
             return;
@@ -32,5 +30,25 @@ abstract class Runner{
      */
     public function setNotification(NotificationBuilder $notification){
     	$this->notification = $notification;
+    }
+
+    /**
+     * 获取脚本的默认设置（储存在 ScriptStorage 里的）
+     * @return array 默认设置
+     */
+    public function getDefaultSettings() : array{
+        return array("cookie" => "");
+    }
+
+    /**
+     * 将用户设置里缺少的项用默认设置补上
+     * @param array $user 用户设置
+     * @return array 完整的设置
+     */
+    public function mergeSettings(array $user) : array{
+        if(!isset($user["cookie"]))
+            return $this->getDefaultSettings();
+        else
+            return $user;
     }
 }

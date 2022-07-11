@@ -3,7 +3,8 @@
 
 ## 特性
 * 支持 QQ（Qmsg）和微信（Server酱） 推送  
-* 支持多账号 
+* 支持多账号  
+* 可自定义签到脚本
 
 ## 已支持站点
 | 名称      | 类型   | 备注                                       |
@@ -22,9 +23,10 @@
 
 ## 安装
 1. Clone 项目到任意一个支持 curl 的 PHP 空间/VPS 上  
-2. 按照注释修改`conf.php`的内容，填好 cookie  
-3. 可选：搭建 PHP 服务器
-4. 若搭建了服务器，定时访问`http://localhost/start.php`；若没有，定时运行 `php start.php`
+2. **先运行一次 `start.php`**
+3. 按照注释修改`conf.php`的内容，填好 cookie  
+4. 可选：搭建 PHP 服务器
+5. 若搭建了服务器，定时访问`http://localhost/start.php`；若没有，定时运行 `php start.php`
 
 **要求 PHP 版本 >= 7**  
 **详细步骤见 [安装 - Wiki](https://github.com/XcantloadX/AutoCloudSign/wiki/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B)**
@@ -35,30 +37,25 @@
 
 ```php
 <?php
-//@id 脚本ID
-//@name 脚本名称
-//@icon 脚本图标，目前保留
-//@site 目标网站域名，目前保留
+//@id   //脚本ID
+//@name //脚本名称
+//@icon //脚本图标，目前保留
+//@site //目标网站域名，目前保留
+//@note //脚本备注，可以在此处写关于自定义设置的说明
+
 
 //类名必须和 ID 一样，大小写必须相同！
 //文件名必须和 ID 一样，而且文件名必须全小写！
 class NAME extends Runner {
-    public function run(string $aid, array $data) {
-        //若使用 cookies.php：
-        //在 cookies.php 下面新增一条变量 $ID名 = array();
-        //若使用 accounts.json（通过 UI 设置）：
-        //无需特别操作
+    public function run(string $aid, array &$data) {
+        //新建的脚本需要先运行一次 start.php 才会在 conf.php 里自动创建配置项
         
-        //$aid 为账号 ID（account id）
-        //$data 为对应账号的信息，结构如下
-        /* {
-         * "id": "脚本ID",
-         * "name": "示例账号",
-         * "cookie": "*****",
-         * "note": "用户备注",
-         * "data": "脚本数据，不同脚本的数据可以有不同的作用（暂时未实现）"
-         * }
-         */
+        /* $aid 为账号 ID（account id），暂时未使用
+        * $data 为对应账号的储存的数据，即 conf.php 里 ScriptStorage 类里储存的数据，结构如下
+        * $data = ["cookie" => "账号1", "data1" => "自定义数据1", ...];
+        * 脚本对 $data 做的修改会被保存回 conf.php 中
+        */
+
         parent::run($aid, $data);
         //签到...
         //.................

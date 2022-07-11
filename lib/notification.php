@@ -1,6 +1,6 @@
 <?php
-include_once "lib/http.php";
-include_once "conf.php";
+require_once "lib/http.php";
+require_once "conf.php";
 
 /**
  * 推送 QQ 消息
