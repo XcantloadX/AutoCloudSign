@@ -5,6 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "运行签到脚本",
+            "type": "php",
+            "request": "launch",
+            "program": "start.php",
+            "cwd": "${workspaceRoot}",
+            "port": 0,
+            "runtimeArgs": [
+                "-dxdebug.remote_enable=yes",
+                "-dxdebug.remote_autostart=yes"
+            ],
+            "env": {
+                "XDEBUG_CONFIG": "remote_port=${port}"
+            }
+        },
+        {
             "name": "Listen for Xdebug",
             "type": "php",
             "request": "launch",
