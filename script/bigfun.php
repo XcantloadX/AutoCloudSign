@@ -5,7 +5,10 @@
 //@icon https://www.bigfun.cn/favicon.ico
 
 class BigFun extends Runner {
+	private $cookie;
+
     public function run(string $aid, array &$data) {
+		$this->cookie = $data["cookie"];
         $this->signin($data["cookie"]);
 
     }
@@ -65,7 +68,7 @@ class BigFun extends Runner {
     			->asJSON();
     }
 
-    public function getName(string $cookie){
-    	return $this->getUserInfo($cookie)->data[0]->nickname;
+    public function getName() : string{
+    	return $this->getUserInfo($this->cookie)->data[0]->nickname;
     }
 }

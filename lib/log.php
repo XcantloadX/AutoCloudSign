@@ -1,7 +1,8 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+<?php require_once "lib/utils.php"; ?>
+<?php if(!isCmd()): ?>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<?php endif; ?>
 <?php
-require_once "lib/utils.php";
 define("MAX_LOG_SIZE", 2 * 1024 * 1024);
 $logPath = "./qiandao.log";
 date_default_timezone_set("Asia/Shanghai"); //设置时区
@@ -68,7 +69,10 @@ function output($type, $sender, $str, $color)
 		$msg = '<span style="color: '.$color.'">'.$msg.'</span>';
 	
 	//输出到网页
-	echo $msg.PHP_EOL."<br/>";
+	if(isCmd())
+		echo $msg.PHP_EOL;
+	else
+		echo $msg.PHP_EOL."<br/>";
 	
 	//刷新缓冲区
 	flush();

@@ -22,6 +22,9 @@ abstract class Runner{
 
         $this->session->headers["Cookie"] = $data["cookie"];
         $this->session->headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.157 Safari/537.36";
+
+        if(!isset($data["name"]))
+            $data["name"] = $this->getName();
     }
 
     /**
@@ -50,5 +53,13 @@ abstract class Runner{
             return $this->getDefaultSettings();
         else
             return $user;
+    }
+
+    /**
+     * 获取当前账号的用户名
+     * @return string 用户名
+     */
+    public function getName() : string{
+        return "";
     }
 }
