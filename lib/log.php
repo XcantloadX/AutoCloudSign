@@ -1,6 +1,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 <?php
+require_once "lib/utils.php";
 define("MAX_LOG_SIZE", 2 * 1024 * 1024);
 $logPath = "./qiandao.log";
 date_default_timezone_set("Asia/Shanghai"); //设置时区
@@ -9,7 +10,7 @@ $name = "default"; //输出提示名字
 $html = false; //是否输出为 HTML
 
 //判断 log 文件大小
-if(!isset($_SERVER["CF"]) || !$_SERVER["CF"]){ //如果不是云函数环境
+if(!isServerless()){
 	if(file_exists($logPath) && filesize($logPath) >= MAX_LOG_SIZE)
 		$fp = fopen($logPath, "w");
 	else
@@ -59,7 +60,7 @@ function output($type, $sender, $str, $color)
 	$msg = "[".date("Y-m-d h:i:s",time())."][".$sender."][".$type."] ".$str;
 	
 	//输出到文件
-	if(!isset($_SERVER["CF"]) || !$_SERVER["CF"]) //如果不是云函数环境
+	if(!isServerless())
 		fputs($fp, $msg.PHP_EOL);
 	
 	//上色

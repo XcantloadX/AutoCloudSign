@@ -13,6 +13,7 @@ ConfHelper::update();
 
 require_once "conf.php";
 require_once "vendor/autoload.php";
+require_once "lib/utils.php";
 require_once "lib/http.php";
 require_once "lib/timewatch.php";
 require_once "lib/log.php";
@@ -24,7 +25,10 @@ require_once "script/base.php";
 
 use AccountManager as AM;
 use ScriptManager as SM;
-define("SIGN_SCRIPT_PATH", "script/");
+//阿里云函数会在此处报常量重复定义错误，所以先判断一下
+//https://www.cnblogs.com/tochw/articles/15882179.html
+if(!defined("SCRIPT_PATH"))
+    define("SCRIPT_PATH", "script/");
 
 set_time_limit(0); //设置脚本执行时间无上限
 ignore_user_abort(true); //后台运行
@@ -45,8 +49,8 @@ if(isset($_GET["site"]))
 
 //TODO 修复此功能
 if($site != "all"){
-    if(file_exists(SIGN_SCRIPT_PATH."/".$site.".php")){
-        include(SIGN_SCRIPT_PATH."/".$site.".php");
+    if(file_exists(SCRIPT_PATH."/".$site.".php")){
+        include(SCRIPT_PATH."/".$site.".php");
         $nBuilder->push();
     }
     else {
@@ -57,13 +61,13 @@ if($site != "all"){
 }
 
 //获取所有签到脚本
-$files = scandir(SIGN_SCRIPT_PATH);
+$files = scandir(SCRIPT_PATH);
 
 //遍历导入并运行所有脚本
 foreach($files as $file)
 {
     if($file != "." && $file != ".." && $file != "base.php" && strpos($file, ".php") > 0){
-        $path = SIGN_SCRIPT_PATH."/".$file;
+        $path = SCRIPT_PATH."/".$file;
         
         try {
             $attrs = SM\getAttributes_($path);

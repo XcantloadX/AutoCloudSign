@@ -1,6 +1,7 @@
 <?php
-$_SERVER["CF"] = true;
+
 function main_handler($event, $context) {
+    $GLOBALS["SERVERLESS"] = true;
     //API 请求
     if(isset($event->requestContext)){
         //获取请求头

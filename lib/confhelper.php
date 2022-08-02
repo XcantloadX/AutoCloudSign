@@ -42,6 +42,11 @@ class ConfHelper{
      * 写入配置文件
      */
     private static function write(ClassType $settingsClass, ClassType $storageClass){
+        if(isServerless()){
+            logWarn("Serverless 模式下无法保存配置文件。");
+            return;
+        }
+
         $output = <<<DATA
 <?php
 //配置文件
