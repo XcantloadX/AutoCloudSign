@@ -1,4 +1,4 @@
-<?php require_once "lib/utils.php"; ?>
+<?php require_once __DIR__."/../lib/utils.php"; ?>
 <?php if(!isCmd()): ?>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <?php endif; ?>

@@ -1,11 +1,11 @@
 <?php
 //conf.php helper
-require_once "vendor/autoload.php";
-require_once "lib/scriptmanager.php";
-require_once "lib/log.php";
-require_once "default/conf.php";
-if(file_exists("conf.php")){
-    include_once "conf.php";
+require_once __DIR__."/../vendor/autoload.php";
+require_once __DIR__."/../lib/scriptmanager.php";
+require_once __DIR__."/../lib/log.php";
+require_once __DIR__."/../default/conf.php";
+if(file_exists(__DIR__."/../conf.php")){
+    include_once __DIR__."/../conf.php";
 }
 use ScriptManager as SM;
 use Nette\PhpGenerator\ClassType;
@@ -58,22 +58,22 @@ $settingsClass
 $storageClass
 DATA;
         
-        file_put_contents("conf.php", $output);
+        file_put_contents(__DIR__."/../conf.php", $output);
     }
 
     /**
      * 初始化 conf.php
      */
     public static function init(){
-        if(file_exists("conf.php")){
+        if(file_exists(__DIR__."/../conf.php")){
             return;
         }
     
         $storageClass = ConfHelper::fromDefaultStorage();
         
-        $files = scandir("script");
+        $files = scandir(__DIR__."/../script");
         foreach($files as $file){
-            $path = "script"."/".$file;
+            $path = __DIR__."/../script"."/".$file;
             if($file != "." && $file != ".." && $file != "base.php" && strpos($file, ".php") > 0){
                 //获取脚本属性
                 try {
@@ -116,9 +116,9 @@ DATA;
         //----ScriptStorage----
         $userVars2 = get_class_vars("ScriptStorage");
         $userclass2 = ClassType::from(ScriptStorage::class);
-        $files = scandir("script");
+        $files = scandir(__DIR__."/../script");
         foreach($files as $file){ //扫描所有脚本并加上配置里没有的
-            $path = "script"."/".$file;
+            $path = __DIR__."/../script"."/".$file;
             if($file != "." && $file != ".." && $file != "base.php" && strpos($file, ".php") > 0){
                 //获取脚本属性
                 try {

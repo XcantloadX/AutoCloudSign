@@ -1,5 +1,5 @@
 <?php
-require_once "lib/confhelper.php";
+require_once __DIR__."/lib/confhelper.php";
 
 if(!file_exists("conf.php")){
     
@@ -11,30 +11,30 @@ if(!file_exists("conf.php")){
 ConfHelper::update();
 
 
-require_once "conf.php";
-require_once "vendor/autoload.php";
-require_once "lib/utils.php";
-require_once "lib/http.php";
-require_once "lib/timewatch.php";
-require_once "lib/log.php";
-require_once "lib/notification.php";
-require_once "lib/accountmanager.php";
-require_once "lib/scriptmanager.php";
+require_once __DIR__."/conf.php";
+require_once __DIR__."/vendor/autoload.php";
+require_once __DIR__."/lib/utils.php";
+require_once __DIR__."/lib/http.php";
+require_once __DIR__."/lib/timewatch.php";
+require_once __DIR__."/lib/log.php";
+require_once __DIR__."/lib/notification.php";
+require_once __DIR__."/lib/accountmanager.php";
+require_once __DIR__."/lib/scriptmanager.php";
 
-require_once "script/base.php";
+require_once __DIR__."/script/base.php";
 
 use AccountManager as AM;
 use ScriptManager as SM;
 //阿里云函数会在此处报常量重复定义错误，所以先判断一下
 //https://www.cnblogs.com/tochw/articles/15882179.html
 if(!defined("SCRIPT_PATH"))
-    define("SCRIPT_PATH", "script/");
+    define("SCRIPT_PATH", __DIR__."/script/");
 
 set_time_limit(0); //设置脚本执行时间无上限
 ignore_user_abort(true); //后台运行
 date_default_timezone_set("Asia/Shanghai"); //设置时区
-AM\setPath("./");
-SM\setPath("./");
+AM\setPath(__DIR__);
+SM\setPath(__DIR__);
 
 //通知推送配置
 $nBuilder = new NotificationBuilder();
