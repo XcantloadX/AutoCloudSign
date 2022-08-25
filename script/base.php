@@ -15,11 +15,6 @@ abstract class Runner{
 	 * @param  array  $data     储存的数据，包括 Cookie 以及脚本自定义数据。参数使用引用传递，对其进行的修改将会被保存。
 	 */
     public function run(string $aid, array &$data){
-        if($data["cookie"] == ""){
-            logError("Cookie 为空。");
-            return;
-        }
-
         $this->session->headers["Cookie"] = $data["cookie"];
         $this->session->headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.157 Safari/537.36";
 
