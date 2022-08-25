@@ -87,7 +87,7 @@ class TieBa extends Runner
 				
             case 1011: //您还未加入此吧或等级不够
                 logWarn("尚未关注 ".$names[$i]."，无法进行签到");
-				continue;
+				continue 2;
 				
             case 1990055: //未登录
                 logError("Cookie 已失效，请重新设置！");
