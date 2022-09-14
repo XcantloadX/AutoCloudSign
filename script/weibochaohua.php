@@ -6,6 +6,7 @@
 
 class WeiBoChaoHua extends Runner {
     public function run(string $aid, array &$data) {
+		parent::run($aid, $data);
         $cookie = $data["cookie"];
 		//获取所有关注的超话
 		$list = $this->getChaoHuaList($cookie);
@@ -34,18 +35,18 @@ class WeiBoChaoHua extends Runner {
 			//签到成功
 			if($code == 100000){
 				$msg2 = $json->data->alert_title." ".$json->data->alert_subtitle;
-				logInfo("请求签到超话 $name （id=$id ）成功，返回信息：$msg。");
+				logInfo("请求签到超话 $name 成功，返回信息：{$msg}。");
 				$count++;
 			}
 			//重复
 			else if($code == 382004){
-				logInfo("请求签到超话 $name （id=$id ）成功，重复签到。");
+				logInfo("请求签到超话 $name 成功，重复签到。");
 				$count++;
 			}
 			//失败
 			else{
 				$msg2 = "已签到";
-				logInfo("请求签到超话 $name （id=$id ）失败，返回信息：$msg。");
+				logInfo("请求签到超话 $name （id=$id ）失败，返回信息：{$msg}。");
 			}
         	
         	
@@ -55,8 +56,8 @@ class WeiBoChaoHua extends Runner {
 		if($count >= $countAll)
         	$this->notification->append("账号 @".$data["name"]." 超话签到成功。");
 		else if($count < $countAll)
-        	$this->notification->append("账号 @".$data["name"]." 超话签到异常，成功 $count/$countAll 。");
-		logInfo("账号 @".$data["name"]." 签到完成，成功 $count/$countAll 。");
+        	$this->notification->append("账号 @".$data["name"]." 超话签到异常，成功 {$count}/{$countAll}。");
+		logInfo("账号 @".$data["name"]." 签到完成，成功 {$count}/{$countAll}。");
     }
 	
 	private function getChaoHuaList($cookie){
